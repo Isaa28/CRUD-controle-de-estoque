@@ -4,7 +4,7 @@ USE estoque;
 CREATE TABLE Usuario(
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nome_da_empresa VARCHAR(100) NOT NULL,
-    cnpj VARCHAR(18) UNIQUE,
+    cnpj VARCHAR(18) NOT NULL UNIQUE,
     Senha VARCHAR(15) UNIQUE
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE Fornecedores (
     Nome_fornecedor VARCHAR(100) NOT NULL,
     Email VARCHAR(255) UNIQUE,
     Telefone VARCHAR(15) UNIQUE,
-    cnpj VARCHAR(18) UNIQUE,
+    cnpj VARCHAR(18) NOT NULL UNIQUE,
     Endereco VARCHAR(100)
 );
 
