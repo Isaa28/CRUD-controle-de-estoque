@@ -3,7 +3,7 @@ USE estoque;
 
 CREATE TABLE Usuario(
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    Nome_da_empresa VARCHAR(100) NOT NULL UNIQUE,
+    Nome_da_empresa VARCHAR(100) NOT NULL,
     cnpj VARCHAR(18) UNIQUE,
     Senha VARCHAR(15) UNIQUE
 );
