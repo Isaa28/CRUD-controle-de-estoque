@@ -14,7 +14,7 @@ if (isset($_POST["cnpj"], $_POST["senha"])) {
     } else {
         try {
             $stmt = $conexao->prepare("SELECT * FROM usuario WHERE cnpj = :cnpj");
-            $stmt->bindParam(":cnpj", $cnpj, PDO::PARAM_STR);
+            $stmt->bindValue(":cnpj", $cnpj, PDO::PARAM_STR);
             $stmt->execute();
 
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
