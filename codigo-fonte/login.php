@@ -29,7 +29,7 @@ if (isset($_POST["cnpj"], $_POST["senha"])) {
                     $_SESSION["id"] = $usuario["ID"];
                     $_SESSION["Nome_da_empresa"] = $usuario["Nome_da_empresa"];
 
-                    header("Location: painel.php");
+                    header("Location: tela-inicial.php");
                     exit();
                 } else {
                     echo "Senha incorreta.";
