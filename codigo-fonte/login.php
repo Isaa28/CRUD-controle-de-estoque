@@ -32,14 +32,14 @@ if (isset($_POST["cnpj"], $_POST["senha"])) {
                     header("Location: tela-inicial.php");
                     exit();
                 } else {
-                    echo "Senha incorreta.";
+                    echo "Senha ou cnpj incorretos.";
                 }
             } else {
                 echo "CNPJ não encontrado.";
             }
         } catch (PDOException $e) {
             echo "Erro: " . $e->getMessage();
-        }
+        } 
     }
 }
 ?>

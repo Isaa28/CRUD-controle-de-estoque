@@ -28,6 +28,7 @@
     justify-content: center;
     width: 50%;
     background-color: #006666;
+    flex-direction: column;
 }
 
 #imagem-login {
@@ -38,7 +39,7 @@
 
 h1 {
     font-size: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 80px;
 }
 
 .rotulo {
@@ -112,10 +113,10 @@ h1 {
 }
 
 #link-cadastro:hover {
-    color: #00FFFF;
+    color: #0FA9A9;
 }
 
 #logo {
-    width: 80px;
+    width: 100px;
     margin-top: 100px;
 }

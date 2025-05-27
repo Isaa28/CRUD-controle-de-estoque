@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Astok</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -18,14 +18,12 @@
             <input type="submit" value="Entrar" class="botoes">
             </form>
             <div id="div-link">
-            <p>Não tem conta?<a id="link-cadastro" href="#">Cadastre-se</a></p>  
+            <p>Não tem conta?<a id="link-cadastro" href="cadastro.php">Cadastre-se</a></p>  
             </div>
         </div>
         <div id="imagem-lateral">
             <img id="imagem-login" src="assets/imagens/imagem-login.png" alt="">
-            <div>
-                <img id="logo" src="assets/imagens/logo.png" alt="Logo Astok">
-            </div>
+            <img id="logo" src="assets/imagens/logo.png" alt="Logo Astok">
         </div>
     </div>
 </body>

@@ -5,6 +5,7 @@
     }
 
     if(!isset($_SESSION["id"])){
-        die("Você não pode acesar esta página porque não está logado. <p><a href=\"index.php\">Entrar</a></p>");
+        header("Location: index.php");
+        // die("Você não pode acesar esta página porque não está logado. <p><a href=\"index.php\">Entrar</a></p>");
     }
 ?>
