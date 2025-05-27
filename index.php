@@ -47,10 +47,10 @@
                                 header("Location: tela-inicial.php");
                                 exit();
                             } else {
-                                echo "<div class='erro'>Senha ou cnpj incorretos.</div>";
+                                echo "<div class='erro'>Senha ou CNPJ incorretos.</div>";
                             }
                         } else {
-                            echo "<div class='erro'>CNPJ não encontrado.</div>";
+                            echo "<div class='erro'>Senha ou CNPJ incorretos.</div>";
                         }
                     } catch (PDOException $e) {
                         echo "Erro: " . $e->getMessage();
