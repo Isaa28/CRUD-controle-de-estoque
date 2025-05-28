@@ -32,6 +32,10 @@
                                     $nomeEmpresa = null;
                                     $cnpj = null;
                                     $senha = null;
+
+                                    session_start();
+                                    $_SESSION['id'] = $conexao->lastInsertId();
+                                    header('Location: tela-inicial.php');
                                 }else{
                                     echo "<div class='erro'>Erro ao tentar efetivar cadastro.</div>";
                                 }
