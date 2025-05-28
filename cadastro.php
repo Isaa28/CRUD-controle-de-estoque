@@ -20,6 +20,7 @@
                         $nomeEmpresa = trim($_POST['nome-empresa']);
                         $cnpj = trim($_POST['cnpj']);
                         $senha = trim($_POST['senha']);
+                        $senha = password_hash($senha, PASSWORD_DEFAULT);
                         if(!empty($nomeEmpresa) && !empty($cnpj) && !empty($senha)){
                             $stmt = $conexao->prepare(query:'INSERT INTO usuario (Nome_da_empresa, cnpj, Senha) VALUES (:nome, :cnpj, :senha)');
                             $stmt->bindValue(':nome', $nomeEmpresa); 
