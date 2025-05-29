@@ -22,12 +22,12 @@
                         $senha = trim($_POST['senha']);
                         $senha = password_hash($senha, PASSWORD_DEFAULT);
                         if(!empty($nomeEmpresa) && !empty($cnpj) && !empty($senha)){
-                            $consulta = $conexao->prepare("SELECT COUNT(*) FROM usuario WHERE cnpj = :verificando_cnpj");
-                            $verificando = bindValue(':verificando_cnpj', $cnpj);
-                            $verificando = execute();
-                            $resultado = $verificando->rowCount();
-                            
-                            if($resultado > 0){
+                            $consulta = $conexao->prepare("SELECT * FROM usuario WHERE cnpj = :verificando_cnpj");
+                            $consulta->bindValue(':verificando_cnpj', $cnpj);
+                            $consulta->execute();
+                            $resultado = $consulta->rowCount();
+
+                            if($resultado === 0){
                                 $stmt = $conexao->prepare(query:'INSERT INTO usuario (Nome_da_empresa, cnpj, Senha) VALUES (:nome, :cnpj, :senha)');
                                 $stmt->bindValue(':nome', $nomeEmpresa); 
                                 $stmt->bindValue(':cnpj', $cnpj);
@@ -48,6 +48,8 @@
                                 }else{
                                     throw new PDOException("Erro: Não foi possível executar a declaração sql");
                                 }
+                            }else{
+                                echo "<div class='erro'>CNPJ já existe no sistema.</div>";
                             }
                         }else{
                             echo "<div class='erro'>Confira se todos os dados foram preenchidos.</div>";

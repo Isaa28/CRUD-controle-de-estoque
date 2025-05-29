@@ -50,18 +50,18 @@
 
     <h1>Cadastrar</h1>
 
-    <div>
-        <button>
+    <div id="caixa-cadastrar">
+        <button class="botao-cadastrar">
             <h2>Fornecedor</h2>
-            <img src="assets/imagens/mais-fornecedor.svg" alt="Cadastrar novo fornecedor">
+            <img class="imagens-cadastro" src="assets/imagens/mais-fornecedor.svg" alt="Novo fornecedor">
         </button>
-        <button>
+        <button class="botao-cadastrar">
             <h2>Produto</h2>
-            <img src="" alt="">
+            <img class="imagens-cadastro" src="assets/imagens/carrinho-de-compras.svg" alt="Carrinho de compras">
         </button>
-        <button>
+        <button class="botao-cadastrar">
             <h2>Categoria</h2>
-            <img src="" alt="">
+            <img class="imagens-cadastro" src="assets/imagens/mais-categoria.svg" alt="Nova categoria">
         </button>
     </div>
     <p>

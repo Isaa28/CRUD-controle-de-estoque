@@ -40,6 +40,7 @@ body {
 
 #logo {
     margin-left: 20px;
+
 }
 #cartoes-resumo{
     display: flex;
@@ -52,4 +53,24 @@ body {
     margin: 50px;
     padding: 20px;
     border-radius: 10px;
+}
+.botao-cadastrar{
+    width: 320px;
+    height: 250px;
+    color: #F9F3F3;
+    background-color: #006666;
+    text-align: start;
+    border-radius: 10px;
+    border: none;
+    margin: 70px;
+    padding: 30px;
+}
+#caixa-cadastrar{
+    display: flex;
+    justify-content: center;
+    margin: 80px;
+}
+
+.imagens-cadastro{
+    margin:10px 80px 10px;
 }
