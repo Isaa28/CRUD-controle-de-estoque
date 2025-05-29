@@ -22,29 +22,35 @@
                         $senha = trim($_POST['senha']);
                         $senha = password_hash($senha, PASSWORD_DEFAULT);
                         if(!empty($nomeEmpresa) && !empty($cnpj) && !empty($senha)){
-                            $sql = "SELECT COUNT(*) AS ";
-                            $stmt = $conexao->prepare(query:'INSERT INTO usuario (Nome_da_empresa, cnpj, Senha) VALUES (:nome, :cnpj, :senha)');
-                            $stmt->bindValue(':nome', $nomeEmpresa); 
-                            $stmt->bindValue(':cnpj', $cnpj);
-                            $stmt->bindValue(':senha', $senha);
-                            if($stmt->execute()){
-                                if($stmt->rowCount() > 0){
-                                    $id = null;
-                                    $nomeEmpresa = null;
-                                    $cnpj = null;
-                                    $senha = null;
+                            $consulta = $conexao->prepare("SELECT COUNT(*) FROM usuario WHERE cnpj = :verificando_cnpj");
+                            $verificando = bindValue(':verificando_cnpj', $cnpj);
+                            $verificando = execute();
+                            $resultado = $verificando->rowCount();
+                            
+                            if($resultado > 0){
+                                $stmt = $conexao->prepare(query:'INSERT INTO usuario (Nome_da_empresa, cnpj, Senha) VALUES (:nome, :cnpj, :senha)');
+                                $stmt->bindValue(':nome', $nomeEmpresa); 
+                                $stmt->bindValue(':cnpj', $cnpj);
+                                $stmt->bindValue(':senha', $senha);
+                                if($stmt->execute()){
+                                    if($stmt->rowCount() > 0){
+                                        $id = null;
+                                        $nomeEmpresa = null;
+                                        $cnpj = null;
+                                        $senha = null;
 
-                                    session_start();
-                                    $_SESSION['id'] = $conexao->lastInsertId();
-                                    header('Location: tela-inicial.php');
+                                        session_start();
+                                        $_SESSION['id'] = $conexao->lastInsertId();
+                                        header('Location: tela-inicial.php');
+                                    }else{
+                                        echo "<div class='erro'>Erro ao tentar efetivar cadastro.</div>";
+                                    }
                                 }else{
-                                    echo "<div class='erro'>Erro ao tentar efetivar cadastro.</div>";
+                                    throw new PDOException("Erro: Não foi possível executar a declaração sql");
                                 }
-                            }else{
-                                throw new PDOException("Erro: Não foi possível executar a declaração sql");
                             }
                         }else{
-                                echo "<div class='erro'>Confira se todos os dados foram preenchidos.</div>";
+                            echo "<div class='erro'>Confira se todos os dados foram preenchidos.</div>";
                         }
                     }
                 }catch (PDOException $erro) {
