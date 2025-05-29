@@ -17,15 +17,27 @@ body {
 }
 #menu-links {
     display: flex;
+    align-items: center;
     gap: 20px;
     padding: 10px 20px;
 }
 #menu-links a{
     text-decoration: none;
     color: #1B2E35;
-    font-weight: bold;
+
 }
 
 #menu-links li{
     list-style: none;
+}
+
+#botao-perfil{
+    background: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#logo {
+    margin-left: 20px;
 }

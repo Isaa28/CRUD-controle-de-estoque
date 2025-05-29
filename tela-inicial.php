@@ -14,7 +14,7 @@
 <body>
         <menu id="menu">
             <div id="logo">
-                <img src="assets/imagens/logo.png" alt="Logo">
+                <img width = "130px" src="assets/imagens/logo.png" alt="Logo">
             </div>
             <div id="menu-links">
                 <li><a href="tela-inicial.php">Home</a></li>
@@ -24,11 +24,13 @@
                 <li><a href="#">Fornecedores</a></li>
                 <li><a href="#">Categorias</a></li>
                 <div>
-
+                    <button id="botao-perfil">
+                        <img src="assets/imagens/icon-perfil.svg" alt="">
+                    </button>
                 </div>
             </div>
         </menu>
-    <h1>Sejá bem-vindo!</h1>
+    <h1 id="bem-vindo">Bem-vindo!</h1>
     <p>O projeto ainda está em desenvolvimento, essa é apenas uma página provisória.</p>
 
     <p>
