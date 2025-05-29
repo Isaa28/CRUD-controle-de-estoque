@@ -22,6 +22,7 @@
                         $senha = trim($_POST['senha']);
                         $senha = password_hash($senha, PASSWORD_DEFAULT);
                         if(!empty($nomeEmpresa) && !empty($cnpj) && !empty($senha)){
+                            $sql = "SELECT COUNT(*) AS ";
                             $stmt = $conexao->prepare(query:'INSERT INTO usuario (Nome_da_empresa, cnpj, Senha) VALUES (:nome, :cnpj, :senha)');
                             $stmt->bindValue(':nome', $nomeEmpresa); 
                             $stmt->bindValue(':cnpj', $cnpj);

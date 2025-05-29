@@ -41,3 +41,15 @@ body {
 #logo {
     margin-left: 20px;
 }
+#cartoes-resumo{
+    display: flex;
+    justify-content: center;
+}
+
+.total-cadastros{
+    background-color: #006666;
+    width: 300px;
+    margin: 50px;
+    padding: 20px;
+    border-radius: 10px;
+}
