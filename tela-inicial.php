@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="assets/css/tela-inicial.css">
 </head>
 <body>
+    <div id="tela-inicial">
         <menu id="menu">
             <div id="logo">
-                <img width = "130px" src="assets/imagens/logo.png" alt="Logo">
+                <img width = "110px" src="assets/imagens/logo.png" alt="Logo">
             </div>
             <div id="menu-links">
                 <li><a href="tela-inicial.php">Home</a></li>
@@ -25,48 +26,49 @@
                 <li><a href="#">Categorias</a></li>
                 <div>
                     <button id="botao-perfil">
-                        <img src="assets/imagens/icon-perfil.svg" alt="Seu perfil">
+                        <img width="40px" src="assets/imagens/icon-perfil.svg" alt="Seu perfil">
                     </button>
                 </div>
             </div>
         </menu>
-    <h1 id="bem-vindo">Bem-vindo!</h1>
-    <p>O projeto ainda está em desenvolvimento, essa é apenas uma página provisória.</p>
 
-    <div id="cartoes-resumo">
-        <div class="total-cadastros">
-            <h2>Produtos</h2>
-            <p>cadastrados</p>
+        <h1 id="bem-vindo">Bem-vindo!</h1>
+
+        <div id="cartoes-resumo">
+            <div class="total-cadastros">
+                <h2>Produtos</h2>
+                <p>cadastrados</p>
+            </div>
+            <div class="total-cadastros">
+                <h2>Fornecedores</h2>
+                <p>cadastrados</p>
+            </div>
+            <div class="total-cadastros">
+                <h2>Categorias</h2>
+                <p>cadastradas</p>
+            </div>
         </div>
-        <div class="total-cadastros">
-            <h2>Fornecedores</h2>
-            <p>cadastrados</p>
+
+        <h1 id="texto-cadastrar">Novo cadastro</h1>
+
+        <div id="caixa-cadastrar">
+                <button class="botao-cadastrar">
+                    <h2>Fornecedor</h2>
+                    <img class="imagens-cadastro" src="assets/imagens/mais-fornecedor.svg" alt="Novo fornecedor">
+                </button>
+                <button class="botao-cadastrar">
+                    <h2>Produto</h2>
+                    <img class="imagens-cadastro" src="assets/imagens/carrinho-de-compras.svg" alt="Carrinho de compras">
+                </button>
+                <button class="botao-cadastrar">
+                    <h2>Categoria</h2>
+                    <img class="imagens-cadastro" src="assets/imagens/mais-categoria.svg" alt="Nova categoria">
+                </button>
+            </div>
         </div>
-        <div class="total-cadastros">
-            <h2>Categorias</h2>
-            <p>cadastradas</p>
-        </div>
+        <p>
+            <a href="logout.php">Sair</a>
+        </p>
     </div>
-
-    <h1>Cadastrar</h1>
-
-    <div id="caixa-cadastrar">
-        <button class="botao-cadastrar">
-            <h2>Fornecedor</h2>
-            <img class="imagens-cadastro" src="assets/imagens/mais-fornecedor.svg" alt="Novo fornecedor">
-        </button>
-        <button class="botao-cadastrar">
-            <h2>Produto</h2>
-            <img class="imagens-cadastro" src="assets/imagens/carrinho-de-compras.svg" alt="Carrinho de compras">
-        </button>
-        <button class="botao-cadastrar">
-            <h2>Categoria</h2>
-            <img class="imagens-cadastro" src="assets/imagens/mais-categoria.svg" alt="Nova categoria">
-        </button>
-    </div>
-    <p>
-        <a href="logout.php">Sair</a>
-    </p>
-
 </body>
 </html>

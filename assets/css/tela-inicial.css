@@ -50,9 +50,10 @@ body {
 .total-cadastros{
     background-color: #006666;
     width: 300px;
-    margin: 50px;
+    margin: 0 50px 50px 0;
     padding: 20px;
     border-radius: 10px;
+    text-align: end;
 }
 .botao-cadastrar{
     width: 320px;
@@ -64,13 +65,32 @@ body {
     border: none;
     margin: 70px;
     padding: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.botao-cadastrar:hover {
+    background: #0FA9A9;
 }
 #caixa-cadastrar{
     display: flex;
     justify-content: center;
-    margin: 80px;
+    margin: 20px;
 }
 
 .imagens-cadastro{
     margin:10px 80px 10px;
+}
+#bem-vindo{
+    text-align: center;
+    margin: 35px;
+    font-size: 40px;
+    color: #4E7C89;
+}
+
+#texto-cadastrar{
+    color: #4E7C89;
+    margin-left: 30px;
+    font-size: 40px;
+    margin-top: 10px;
 }
