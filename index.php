@@ -40,7 +40,7 @@
                                 exit();
                             }
 
-                            if (password_verify($senha, $usuario["Senha"])) {
+                            if ($senha === $usuario["Senha"]) {
                                 $_SESSION["id"] = $usuario["ID"];
                                 $_SESSION["Nome_da_empresa"] = $usuario["Nome_da_empresa"];
 
