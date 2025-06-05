@@ -20,6 +20,8 @@
                         $nomeEmpresa = trim($_POST['nome-empresa']);
                         $cnpj = trim($_POST['cnpj']);
                         $senha = trim($_POST['senha']);
+                        $senha = password_hash($senha, PASSWORD_DEFAULT);
+                        
                         if(!empty($nomeEmpresa) && !empty($cnpj) && !empty($senha)){
                             $consulta = $conexao->prepare("SELECT * FROM usuario WHERE cnpj = :verificando_cnpj");
                             $consulta->bindValue(':verificando_cnpj', $cnpj);

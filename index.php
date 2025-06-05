@@ -40,14 +40,14 @@
                                 exit();
                             }
 
-                            if ($senha === $usuario["Senha"]) {
+                            if (password_verify($senha, $usuario["Senha"])) {
                                 $_SESSION["id"] = $usuario["ID"];
                                 $_SESSION["Nome_da_empresa"] = $usuario["Nome_da_empresa"];
 
                                 header("Location: tela-inicial.php");
                                 exit();
                             } else {
-                                echo "<div class='erro'>Senha ou CNPJ incorretos.</div>";
+                                echo "<div class='erro'>Senha ou CNPJ incorretosdfghj.</div>";
                             }
                         } else {
                             echo "<div class='erro'>Senha ou CNPJ incorretos.</div>";
