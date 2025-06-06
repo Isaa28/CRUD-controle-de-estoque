@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/tela-inicial.css">
+    <link rel="stylesheet" href="assets/css/menu.css">
 </head>
 <body>
     <div id="tela-inicial">
@@ -52,15 +53,15 @@
         <h1 id="texto-cadastrar">Novo cadastro</h1>
 
         <div id="caixa-cadastrar">
-                <button class="botao-cadastrar">
+                <button onclick="window.location.href='cadastro-fornecedor.php'" class="botao-cadastrar">
                     <h2>Fornecedor</h2>
                     <img class="imagens-cadastro" src="assets/imagens/mais-fornecedor.svg" alt="Novo fornecedor">
                 </button>
-                <button class="botao-cadastrar">
+                <button onclick="window.location.href='cadastro-produto.php'" class="botao-cadastrar">
                     <h2>Produto</h2>
                     <img class="imagens-cadastro" src="assets/imagens/carrinho-de-compras.svg" alt="Carrinho de compras">
                 </button>
-                <button class="botao-cadastrar">
+                <button onclick="window.location.href='cadastro-categoria.php'" class="botao-cadastrar">
                     <h2>Categoria</h2>
                     <img class="imagens-cadastro" src="assets/imagens/mais-categoria.svg" alt="Nova categoria">
                 </button>

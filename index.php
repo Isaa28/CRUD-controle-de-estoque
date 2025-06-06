@@ -47,7 +47,7 @@
                                 header("Location: tela-inicial.php");
                                 exit();
                             } else {
-                                echo "<div class='erro'>Senha ou CNPJ incorretosdfghj.</div>";
+                                echo "<div class='erro'>Senha ou CNPJ incorretos.</div>";
                             }
                         } else {
                             echo "<div class='erro'>Senha ou CNPJ incorretos.</div>";

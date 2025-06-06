@@ -37,23 +37,6 @@ CREATE TABLE Produtos (
 	ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE Entrada (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    data DATE NOT NULL,
-    Produto_ID INT NOT NULL,
-    quantidade_estoque INT NOT NULL,
-    FOREIGN KEY (Produto_ID) REFERENCES Produtos(ID)
-);
-
-CREATE TABLE Saida (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    data DATE NOT NULL,
-    Produto_ID INT NOT NULL,
-    quantidade_estoque INT NOT NULL,
-    FOREIGN KEY (Produto_ID) REFERENCES Produtos(ID)
-);
-
-
 SELECT * FROM produtos;
 SELECT * FROM fornecedores;
 SELECT * FROM categorias;
