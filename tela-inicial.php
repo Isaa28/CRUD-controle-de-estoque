@@ -23,7 +23,7 @@
                 <li><a href="#">Entradas</a></li>
                 <li><a href="#">Saídas</a></li>
                 <li><a href="#">Produtos</a></li>
-                <li><a href="#">Fornecedores</a></li>
+                <li><a href="tabela-fornecedor.php">Fornecedores</a></li>
                 <li><a href="#">Categorias</a></li>
                 <div>
                     <button id="botao-perfil">

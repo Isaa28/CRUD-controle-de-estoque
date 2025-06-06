@@ -106,7 +106,7 @@
                 <label class="rotulo" for="endereco">Endereço:</label>
                 <input class="caixadeentrada" type="text" id="endereco" name="endereco" placeholder="Ex: Mirão distribuidora">
                 <br>
-                <button class="botoes" onclick="window.location.href='tela-inicial.php'" >Cancelar</button>
+                <a href="tela-inicial.php">cancelar</a>
                 <button class="botoes" type="submit">Salvar</button>
             </form>    
         </div>

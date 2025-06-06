@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="assets/css/tabelas.css">
 </head>
 <body>
     <?php
@@ -25,7 +26,7 @@
         <body id="corpodatabela">
 <?php
     while($rows = $dados->fetch(PDO::FETCH_OBJ)){
-        echo '<tr>'. '<th>' . $rows->Nome .'</th> <th>'. $rows->Email .'</th> <th>'. $rows->cnpj .'</th> <th>'. $rows->Telefone .'</th> <th>'. $rows->Endereco . '</tr>';
+        echo '<tr>'. '<th>' . $rows->Nome_fornecedor .'</th> <th>'. $rows->Email .'</th> <th>'. $rows->cnpj .'</th> <th>'. $rows->Telefone .'</th> <th>'. $rows->Endereco . '<th><a><img src="assets/imagens/icon-pencil.svg" alt=""></a></th> <th> </th> </tr>';
         echo '<br>';
     }
 ?>
