@@ -1,3 +1,8 @@
+<?php
+
+    require_once "protect.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,32 +39,32 @@
                 <?php 
                     require_once 'conexao.php';
                     try {
-                        if(isset($_POST['nome-produto'], $_POST['preco'], $_POST['cnpj'], $_POST['quantidade'], $_POST['endereco'])){
+                        if(isset($_POST['nome-produto'], $_POST['preco'], $_POST['nome-fornecedor'], $_POST['quantidade'], $_POST['categoria'])){
                             
                             $nome = trim($_POST['nome-produto']);
                             $quantidade = trim($_POST['quantidade']);
                             $preco = trim($_POST['preco']);
-                            $cnpj = trim($_POST['cnpj']);
-                            $endereco = trim($_POST['endereco']);
+                            $nome_fornecedor= trim($_POST['nome-fornecedor']);
+                            $categoria = trim($_POST['endereco']);
                             
-                            if(!empty($nome) && !empty($cnpj) && !empty($quantidade) && !empty($endereco) && !empty($preco)) {
+                            if(!empty($nome) && !empty($nome_fornecedor) && !empty($quantidade) && !empty($endereco) && !empty($preco)) {
                                 
-                                $consulta = $conexao->prepare("SELECT * FROM usuario WHERE cnpj = :verificando_cnpj");
-                                $consulta->bindValue(':verificando_cnpj', $cnpj);
+                                $consulta = $conexao->prepare("SELECT * FROM produtos WHERE Nome_produto = :verificando_produto");
+                                $consulta->bindValue(':verificando_produto', $nome);
                                 $consulta->execute();
                                 $resultado = $consulta->rowCount();
 
                                 if($resultado === 0) {
                                     
                                     $dados = $conexao->prepare('
-                                        INSERT INTO fornecedores (Nome_fornecedor, quantidade, preco, cnpj, Endereco) 
-                                        VALUES (:nome, :quantidade, :preco, :cnpj, :endereco)
+                                        INSERT INTO fornecedores (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID) 
+                                        VALUES (:nome, :quantidade, :preco, :nome-fornecedor, :categoria)
                                     ');
                                     $dados->bindValue(':nome', $nome); 
                                     $dados->bindValue(':quantidade', $quantidade);
                                     $dados->bindValue(':preco', $preco);
-                                    $dados->bindValue(':cnpj', $cnpj);
-                                    $dados->bindValue(':endereco', $endereco);
+                                    $dados->bindValue(':nome-fornecedor',  $nome_fornecedor);
+                                    $dados->bindValue(':categoria', $categoria);
                                     
                                     if($dados->execute()) {
                                         if($dados->rowCount() > 0) {
@@ -67,21 +72,23 @@
                                             $nome = null;
                                             $quantidade = null;
                                             $preco = null;
-                                            $cnpj = null;
+                                            $nome_fornecedor = null;
                                             $endereco = null;
                                         } else {
-                                            echo 'Erro ao tentar efetivar cadastro';
+                                            echo '<div class="erro">Erro ao tentar efetivar cadastro</div>';
                                         }
                                     } else {
                                         throw new PDOException("Erro: Não foi possível executar a declaração sql");
                                     }
                                 } else {
-                                    echo '[ERRO] CNPJ já cadastrado.';
+                                    echo '<div class="erro">[ERRO] Fornecedor já cadastrado.</div>';
                                 }
 
                             } else {
-                                echo '[ERRO] Dados incompletos.';
+                                echo '<div class="erro">[ERRO] Dados incompletos.</div>';
                             }
+                        }else{
+                            echo '<div class="erro">[ERRO] Dados não encontrados.</div>';
                         }
                     } catch (PDOException $erro) {
                         echo "Erro: " . $erro->getMessage();
@@ -105,13 +112,13 @@
                         </div>
                         <div class="grupo-form linha1">
                             <label class="rotulo" for="nome-fornecedor">Fornecedor:</label>
-                            <input class="caixadeentrada" type="email" id="email-de-contato" name="email-de-contato" placeholder="Ex: fornercerdor123@gmail.com">
+                            <input class="caixadeentrada" type="email" id="nome-fornecedor" name="nome-fornecedor" placeholder="Ex: fornercerdor123@gmail.com">
                         </div>
                     </div>
                     <div class="div-linhas">
                         <div class="grupo-form linha3">
-                            <label class="rotulo" for="endereco">Endereço:</label>
-                            <input class="caixadeentrada" type="text" id="endereco" name="endereco" placeholder="Ex: Mirão distribuidora">
+                            <label class="rotulo" for="categoria">Categoria:</label>
+                            <input class="caixadeentrada" type="text" id="categoria" name="categoria" placeholder="Ex: Mirão distribuidora">
                         </div>
                     </div>
                     <div id="botoes">

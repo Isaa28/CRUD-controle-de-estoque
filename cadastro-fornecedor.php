@@ -51,7 +51,7 @@
                             
                             if(!empty($nomeFornecedor) && !empty($cnpj) && !empty($email) && !empty($endereco) && !empty($telefone)) {
                                 
-                                $consulta = $conexao->prepare("SELECT * FROM usuario WHERE cnpj = :verificando_cnpj");
+                                $consulta = $conexao->prepare("SELECT * FROM fornecedores WHERE cnpj = :verificando_cnpj");
                                 $consulta->bindValue(':verificando_cnpj', $cnpj);
                                 $consulta->execute();
                                 $resultado = $consulta->rowCount();

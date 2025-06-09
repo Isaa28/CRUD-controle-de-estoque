@@ -1,3 +1,8 @@
+<?php
+
+    require_once "protect.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +42,7 @@
         <table id="tabela">
             <thead id="cabeca-tabela">
                 <tr>
-                    <th>Nome</th>
+                    <th>Nome do fornecedor</th>
                     <th>Email</th>
                     <th>CNPJ</th>
                     <th>Telefone</th>
@@ -54,7 +59,7 @@
                         <td><?= htmlspecialchars($rows->Telefone) ?></td>
                         <td><?= htmlspecialchars($rows->Endereco) ?></td>
                         <td class="acoes">
-                            <a class="icons"><img src="assets/imagens/icon-pencil.svg" alt="Editar" href="alterar-fornecedor.php"></a>
+                            <a class="icons" href="alterar-fornecedor.php"><img src="assets/imagens/icon-pencil.svg" alt="Editar"></a>
                             <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
                         </td>
                     </tr>

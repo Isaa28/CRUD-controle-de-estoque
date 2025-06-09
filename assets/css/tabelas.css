@@ -40,9 +40,8 @@ body {
 }
 
 #tabela th, #tabela td {
-  padding: 12px 16px;
+  padding: 12px 20px;
   font-size: 14px;
-  text-align: center;
 }
 
 #tabela th:last-child, #tabela td:last-child {
@@ -61,7 +60,8 @@ body {
 }
 
 #tabela tbody tr:hover {
-  background-color: #42585E;
+    background-color: #42585E;
+    color: #D0D0D0;
 }
 
 .acoes {
@@ -92,8 +92,4 @@ body {
 #cancelar-cadastrar:hover {
     background-color: #143D4A;
     color: #FEFEFE;
-}
-
-#cabecalho-categoria{
-    
 }
