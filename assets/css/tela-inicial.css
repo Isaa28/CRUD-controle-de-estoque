@@ -16,7 +16,6 @@ body {
 }
 
 .total-cadastros{
-    display: flex;
     background-color: #006666;
     width: 300px;
     margin: 0 50px 50px 0;
@@ -24,6 +23,11 @@ body {
     border-radius: 10px;
     text-align: end;
 }
+
+.total {
+    display: block;
+}
+
 .botao-cadastrar{
     width: 320px;
     height: 250px;

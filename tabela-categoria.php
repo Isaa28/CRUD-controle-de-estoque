@@ -31,22 +31,28 @@
         $dados = $conexao->prepare('SELECT * FROM categorias;');
         $dados->execute();
     ?>
-    <h1>fornecedores cadastrados</h1>
+    <h1 id="titulo">Categorias</h1>
+    <a id="cancelar-cadastrar" href="cadastro-categoria.php">Cadastrar</a>
     <div id="div-tabela">
         <table id="tabela">
-            <head id="cabeca-tabela">
+            <thead id="cabeca-tabela" id="cabecalho-categoria">
                 <tr>
                     <th>Nome</th>
+                    <th> </th>
                 </tr>
-            </head>
-            <body id="corpodatabela">
-                <?php
-                    while($rows = $dados->fetch(PDO::FETCH_OBJ)){
-                        echo '<div class="linha"> <tr>'. '<th>' . $rows->Nome_categoria .'</th> <th><a class="icons"><img src="assets/imagens/icon-pencil.svg" alt=""></a></th> <th><a class="icons"><img src="assets/imagens/icon-trash.svg" alt=""></a></th> </tr> </div>';
-                        echo '<br>';
-                    }
-                ?>
-            </body>
+            </thead>
+            <tbody id="corpodatabela">
+                <?php while($rows = $dados->fetch(PDO::FETCH_OBJ)): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($rows->Nome_categoria) ?></td>
+                        <td class="acoes">
+                            <a class="icons"><img src="assets/imagens/icon-pencil.svg" alt="Editar" href="alterar-fornecedor.php"></a>
+                            <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+
         </table>
     </div>
 </body>

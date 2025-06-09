@@ -56,21 +56,18 @@
     ?>
         <div id="cartoes-resumo">
             <div class="total-cadastros">
-                <div class="total">
                     <h1><?php echo $totalProdutos; ?></h1>
                     <h2>Produtos</h2>
                 </div>
                 <p>cadastrados</p>
             </div>
             <div class="total-cadastros">
-                <div class="total">
                     <h1><?php echo $totalFornecedores; ?></h1>
                     <h2>Fornecedores</h2>
                 </div>
                 <p>cadastrados</p>
             </div>
             <div class="total-cadastros">
-                <div class="total">
                     <h1><?php echo $totalCategorias; ?></h1>
                     <h2>Categorias</h2>
                 </div>

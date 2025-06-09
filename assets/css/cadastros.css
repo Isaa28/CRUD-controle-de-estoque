@@ -35,7 +35,7 @@ body {
     height: 80%;
 }
 
-#cancelar{
+#cancelar-cadastrar{
     background-color: #FEFEFE;
     padding: 10px 25px;
     border-radius: 5px;
@@ -63,7 +63,7 @@ body {
     color: #FEFEFE;
 }
 
-#cancelar:hover {
+#cancelar-cadastrar:hover {
     background-color: #143D4A;
     color: #FEFEFE;
 }

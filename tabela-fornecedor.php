@@ -32,6 +32,7 @@
         $dados->execute();
     ?>
     <h1 id="titulo">Fornecedores</h1>
+    <a id="cancelar-cadastrar" href="cadastro-fornecedor.php">Cadastrar</a>
     <div id="div-tabela">
         <table id="tabela">
             <thead id="cabeca-tabela">
