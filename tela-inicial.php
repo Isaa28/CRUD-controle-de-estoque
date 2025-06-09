@@ -22,9 +22,9 @@
                 <li><a href="tela-inicial.php">Home</a></li>
                 <li><a href="#">Entradas</a></li>
                 <li><a href="#">Saídas</a></li>
-                <li><a href="#">Produtos</a></li>
+                <li><a href="tabela-produto.php">Produtos</a></li>
                 <li><a href="tabela-fornecedor.php">Fornecedores</a></li>
-                <li><a href="#">Categorias</a></li>
+                <li><a href="tabela-categoria.php">Categorias</a></li>
                 <div>
                     <button id="botao-perfil">
                         <img width="40px" src="assets/imagens/icon-perfil.svg" alt="Seu perfil">
@@ -34,18 +34,46 @@
         </menu>
 
         <h1 id="bem-vindo">Bem-vindo!</h1>
+    <?php
+        require_once 'conexao.php';
 
+        try {
+            $stmtProdutos = $conexao->prepare("SELECT COUNT(*) AS total FROM produtos");
+            $stmtProdutos->execute();
+            $totalProdutos = $stmtProdutos->fetch(PDO::FETCH_ASSOC)['total'];
+
+            $stmtFornecedores = $conexao->prepare("SELECT COUNT(*) AS total FROM fornecedores");
+            $stmtFornecedores->execute();
+            $totalFornecedores = $stmtFornecedores->fetch(PDO::FETCH_ASSOC)['total'];
+
+            $stmtCategorias = $conexao->prepare("SELECT COUNT(*) AS total FROM categorias");
+            $stmtCategorias->execute();
+            $totalCategorias = $stmtCategorias->fetch(PDO::FETCH_ASSOC)['total'];
+
+        } catch (PDOException $erro) {
+            echo "Erro: " . $erro->getMessage();
+        }
+    ?>
         <div id="cartoes-resumo">
             <div class="total-cadastros">
-                <h2>Produtos</h2>
+                <div class="total">
+                    <h1><?php echo $totalProdutos; ?></h1>
+                    <h2>Produtos</h2>
+                </div>
                 <p>cadastrados</p>
             </div>
             <div class="total-cadastros">
-                <h2>Fornecedores</h2>
+                <div class="total">
+                    <h1><?php echo $totalFornecedores; ?></h1>
+                    <h2>Fornecedores</h2>
+                </div>
                 <p>cadastrados</p>
             </div>
             <div class="total-cadastros">
-                <h2>Categorias</h2>
+                <div class="total">
+                    <h1><?php echo $totalCategorias; ?></h1>
+                    <h2>Categorias</h2>
+                </div>
                 <p>cadastradas</p>
             </div>
         </div>

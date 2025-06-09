@@ -16,22 +16,21 @@
             <li><a href="tela-inicial.php">Home</a></li>
             <li><a href="#">Entradas</a></li>
             <li><a href="#">Saídas</a></li>
-            <li><a href="#">Produtos</a></li>
-            <li><a href="#">Fornecedores</a></li>
-            <li><a href="#">Categorias</a></li>
+            <li><a href="tabela-produto.php">Produtos</a></li>
+            <li><a href="tabela-fornecedor.php">Fornecedores</a></li>
+            <li><a href="tabela-categoria.php">Categorias</a></li>
             <div>
                 <button id="botao-perfil">
                 <img width="40px" src="assets/imagens/icon-perfil.svg" alt="Seu perfil">
                 </button>
             </div>
         </div>
-        </menu>
+    </menu>
     <div id="tela-cadastro">
         <div id="imagem-lateral">
             <img id="imagem-cadastro" src="assets/imagens/imagem-categorias.png" alt="">
         </div>
         <div id="caixa-cadastro">
-            <h1 id="titulo">Cadastro de categoria</h1>
         <?php
             require_once "protect.php";
             require_once "conexao.php";
@@ -64,13 +63,14 @@
             }
         ?>
             <div id="formulario">
+                <h1 id="titulo">Cadastro de categoria</h1>
                 <form action="" method="post">
                     <label class="rotulo" for="nome-categoria">Nome da categoria:</label>
                     <input class="caixadeentrada" type="text" id="nome-categoria" name="nome-categoria" placeholder="Ex: Alimento">
                     <br>
-                    <div id="div-botoes">
-                        <button class="botoes" type="button" onclick="window.location.href='tela-inicial.php'">Cancelar</button>
-                        <input type="submit" class="botoes" value="Salvar">
+                    <div id="botoes">
+                        <a id="cancelar" href="tela-inicial.php">Cancelar</a>
+                        <button id="salvar" type="submit">Salvar</button>
                     </div>
                 </form>    
             </div>

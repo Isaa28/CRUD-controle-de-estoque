@@ -28,38 +28,25 @@
     </menu>
     <?php
         require_once 'conexao.php';
-        $dados = $conexao->prepare('SELECT * FROM fornecedores;');
+        $dados = $conexao->prepare('SELECT * FROM categorias;');
         $dados->execute();
     ?>
-    <h1 id="titulo">Fornecedores</h1>
+    <h1>fornecedores cadastrados</h1>
     <div id="div-tabela">
         <table id="tabela">
-            <thead id="cabeca-tabela">
+            <head id="cabeca-tabela">
                 <tr>
                     <th>Nome</th>
-                    <th>Email</th>
-                    <th>CNPJ</th>
-                    <th>Telefone</th>
-                    <th>Endereço</th>
-                    <th> </th>
                 </tr>
-            </thead>
-            <tbody id="corpodatabela">
-                <?php while($rows = $dados->fetch(PDO::FETCH_OBJ)): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($rows->Nome_fornecedor) ?></td>
-                        <td><?= htmlspecialchars($rows->Email) ?></td>
-                        <td><?= htmlspecialchars($rows->cnpj) ?></td>
-                        <td><?= htmlspecialchars($rows->Telefone) ?></td>
-                        <td><?= htmlspecialchars($rows->Endereco) ?></td>
-                        <td class="acoes">
-                            <a class="icons"><img src="assets/imagens/icon-pencil.svg" alt="Editar" href="alterar-fornecedor.php"></a>
-                            <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-
+            </head>
+            <body id="corpodatabela">
+                <?php
+                    while($rows = $dados->fetch(PDO::FETCH_OBJ)){
+                        echo '<div class="linha"> <tr>'. '<th>' . $rows->Nome_categoria .'</th> <th><a class="icons"><img src="assets/imagens/icon-pencil.svg" alt=""></a></th> <th><a class="icons"><img src="assets/imagens/icon-trash.svg" alt=""></a></th> </tr> </div>';
+                        echo '<br>';
+                    }
+                ?>
+            </body>
         </table>
     </div>
 </body>
