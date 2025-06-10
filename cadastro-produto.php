@@ -40,14 +40,14 @@
                     require_once 'conexao.php';
                     try {
                         if(isset($_POST['nome-produto'], $_POST['preco'], $_POST['nome-fornecedor'], $_POST['quantidade'], $_POST['categoria'])){
-                            
+    
                             $nome = trim($_POST['nome-produto']);
                             $quantidade = trim($_POST['quantidade']);
                             $preco = trim($_POST['preco']);
                             $nome_fornecedor= trim($_POST['nome-fornecedor']);
-                            $categoria = trim($_POST['endereco']);
+                            $categoria = trim($_POST['categoria']);
                             
-                            if(!empty($nome) && !empty($nome_fornecedor) && !empty($quantidade) && !empty($endereco) && !empty($preco)) {
+                            if(!empty($nome) && !empty($nome_fornecedor) && !empty($quantidade) && !empty($categoria) && !empty($preco)) {
                                 
                                 $consulta = $conexao->prepare("SELECT * FROM produtos WHERE Nome_produto = :verificando_produto");
                                 $consulta->bindValue(':verificando_produto', $nome);
@@ -57,41 +57,41 @@
                                 if($resultado === 0) {
                                     
                                     $dados = $conexao->prepare('
-                                        INSERT INTO fornecedores (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID) 
-                                        VALUES (:nome, :quantidade, :preco, :nome-fornecedor, :categoria)
+                                        INSERT INTO produtos (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID) 
+                                        VALUES (:nome, :quantidade, :preco, :nome_fornecedor, :categoria)
                                     ');
                                     $dados->bindValue(':nome', $nome); 
                                     $dados->bindValue(':quantidade', $quantidade);
                                     $dados->bindValue(':preco', $preco);
-                                    $dados->bindValue(':nome-fornecedor',  $nome_fornecedor);
+                                    $dados->bindValue(':nome_fornecedor',  $nome_fornecedor);
                                     $dados->bindValue(':categoria', $categoria);
                                     
                                     if($dados->execute()) {
                                         if($dados->rowCount() > 0) {
-                                            $id = null;
                                             $nome = null;
                                             $quantidade = null;
                                             $preco = null;
-                                            $nome_fornecedor = null;
-                                            $endereco = null;
+                                            $nome_fornecedor= null;
+                                            $categoria = null;
                                         } else {
                                             echo '<div class="erro">Erro ao tentar efetivar cadastro</div>';
                                         }
                                     } else {
-                                        throw new PDOException("Erro: Não foi possível executar a declaração sql");
+                                        throw new PDOException("Erro: Não foi possível executar a declaração SQL");
                                     }
                                 } else {
-                                    echo '<div class="erro">[ERRO] Fornecedor já cadastrado.</div>';
+                                    echo '<div class="erro">[ERRO] Produto já cadastrado.</div>';
                                 }
 
                             } else {
                                 echo '<div class="erro">[ERRO] Dados incompletos.</div>';
                             }
-                        }else{
-                            echo '<div class="erro">[ERRO] Dados não encontrados.</div>';
+                        } else {
+
                         }
-                    } catch (PDOException $erro) {
-                        echo "Erro: " . $erro->getMessage();
+
+                        }catch (PDOException $erro) {
+                            echo "Erro: " . $erro->getMessage();
                     }
                 ?>
                 <form action="" method="post">
@@ -117,8 +117,22 @@
                     </div>
                     <div class="div-linhas">
                         <div class="grupo-form linha3">
+                            <?php
+                                $sql = "SELECT id, nome FROM categorias";
+                                $stmt = $conexao->prepare($sql);
+                                $stmt->execute();
+                                $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            ?>
                             <label class="rotulo" for="categoria">Categoria:</label>
-                            <input class="caixadeentrada" type="text" id="categoria" name="categoria" placeholder="Ex: Mirão distribuidora">
+                            <select name="categoria" id="categoria">
+                                <option value="">Selecione a categoria</option>
+                                <?php
+                                foreach ($categorias as $categoria) {
+                                    echo "<option value='" . $categoria['id'] . "'>" . $categoria['nome'] . "</option>";
+                                }
+                                ?>
+                            </select>
+
                         </div>
                     </div>
                     <div id="botoes">
