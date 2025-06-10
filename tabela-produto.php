@@ -33,7 +33,13 @@
     </menu>
     <?php
         require_once 'conexao.php';
-        $dados = $conexao->prepare('SELECT * FROM produtos;');
+        $dados = $conexao->prepare("
+        SELECT p.Nome_produto, p.Quantidade_estoque, p.preco,
+            f.Nome_fornecedor, c.Nome_categoria
+        FROM produtos p
+        JOIN fornecedores f ON p.Fornecedor_ID = f.id
+        JOIN categorias c ON p.Categoria_ID = c.id
+    ");
         $dados->execute();
     ?>
     <h1 id="titulo">Produtos</h1>
@@ -55,9 +61,9 @@
                     <tr>
                         <td><?= htmlspecialchars($rows->Nome_produto) ?></td>
                         <td><?= htmlspecialchars($rows->Quantidade_estoque) ?></td>
-                        <td><?= htmlspecialchars($rows->Preco) ?></td>
-                        <td><?= htmlspecialchars($rows->Fornecedor_ID) ?></td>
-                        <td><?= htmlspecialchars($rows->Categoria_ID) ?></td>
+                        <td>R$ <?= number_format($rows->preco, 2, ',', '.') ?></td>
+                        <td><?= htmlspecialchars($rows->Nome_categoria) ?></td>
+                        <td><?= htmlspecialchars($rows->Nome_fornecedor) ?></td>
                         <td class="acoes">
                             <a class="icons" href="alterar-produto.php"><img src="assets/imagens/icon-pencil.svg" alt="Editar"></a>
                             <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>

@@ -140,3 +140,10 @@ body {
     font-size: 15px;
     margin-bottom: 5px;
 }
+
+.select-cadastro{
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    color: #807f7f;
+}

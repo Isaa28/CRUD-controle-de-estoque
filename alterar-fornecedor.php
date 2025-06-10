@@ -2,7 +2,65 @@
 
     require_once "protect.php";
 
+    if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header('Location: tabela-fornecedor.php');
+    exit;
+        }
+
+        $id = intval($_GET['id']);
+
+        try {
+            $stmt = $conexao->prepare("SELECT * FROM fornecedores WHERE id = :id");
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$fornecedor) {
+                echo "Fornecedor não encontrado.";
+                exit;
+            }
+
+        } catch (PDOException $e) {
+            echo "Erro ao buscar fornecedor: " . $e->getMessage();
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome = trim($_POST['nome_fornecedor']);
+            $email = trim($_POST['email']);
+            $cnpj = trim($_POST['cnpj']);
+            $telefone = trim($_POST['telefone']);
+            $endereco = trim($_POST['endereco']);
+
+            if ($nome == '' || $email == '') {
+                $erro = "Nome e email são obrigatórios.";
+            } else {
+                try {
+                    $update = $conexao->prepare("
+                        UPDATE fornecedores 
+                        SET Nome_fornecedor = :nome, Email = :email, cnpj = :cnpj, Telefone = :telefone, Endereco = :endereco
+                        WHERE id = :id
+                    ");
+                    $update->bindValue(':nome', $nome);
+                    $update->bindValue(':email', $email);
+                    $update->bindValue(':cnpj', $cnpj);
+                    $update->bindValue(':telefone', $telefone);
+                    $update->bindValue(':endereco', $endereco);
+                    $update->bindValue(':id', $id, PDO::PARAM_INT);
+
+                    if ($update->execute()) {
+                        header('Location: tabela-fornecedor.php');
+                        exit;
+                    } else {
+                        $erro = "Erro ao atualizar fornecedor.";
+                    }
+                } catch (PDOException $e) {
+                    $erro = "Erro: " . $e->getMessage();
+                }
+            }
+        }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,87 +96,31 @@
         <div id="caixa-cadastro">
             <div id="formulario">
                 <h1 id="titulo">Alterar dados do fornecedor</h1>
-                <?php 
-                    require_once 'conexao.php';
-                    try {
-                        if(isset($_POST['nome-fornecedor'], $_POST['telefone'], $_POST['cnpj'], $_POST['email-de-contato'], $_POST['endereco'])){
-                            
-                            $nomeFornecedor = trim($_POST['nome-fornecedor']);
-                            $email = trim($_POST['email-de-contato']);
-                            $telefone = trim($_POST['telefone']);
-                            $cnpj = trim($_POST['cnpj']);
-                            $endereco = trim($_POST['endereco']);
-                            
-                            if(!empty($nomeFornecedor) && !empty($cnpj) && !empty($email) && !empty($endereco) && !empty($telefone)) {
-                                
-                                $consulta = $conexao->prepare("SELECT * FROM fornecedores WHERE cnpj = :verificando_cnpj");
-                                $consulta->bindValue(':verificando_cnpj', $cnpj);
-                                $consulta->execute();
-                                $resultado = $consulta->rowCount();
-
-                                if($resultado === 0) {
-                                    
-                                    $dados = $conexao->prepare('
-                                        INSERT INTO fornecedores (Nome_fornecedor, Email, Telefone, cnpj, Endereco) 
-                                        VALUES (:nome, :email, :telefone, :cnpj, :endereco)
-                                    ');
-                                    $dados->bindValue(':nome', $nomeFornecedor); 
-                                    $dados->bindValue(':email', $email);
-                                    $dados->bindValue(':telefone', $telefone);
-                                    $dados->bindValue(':cnpj', $cnpj);
-                                    $dados->bindValue(':endereco', $endereco);
-                                    
-                                    if($dados->execute()) {
-                                        if($dados->rowCount() > 0) {
-                                            $id = null;
-                                            $nomeFornecedor = null;
-                                            $email = null;
-                                            $telefone = null;
-                                            $cnpj = null;
-                                            $endereco = null;
-                                        } else {
-                                            echo '<div class="erro">Erro ao tentar efetivar cadastro</div>';
-                                        }
-                                    } else {
-                                        throw new PDOException("Erro: Não foi possível executar a declaração sql");
-                                    }
-                                } else {
-                                    echo '<div class="erro">[ERRO] CNPJ já cadastrado.</div>';
-                                }
-
-                            } else {
-                                echo '<div class="erro">[ERRO] Dados incompletos.</div>';
-                            }
-                        }
-                    } catch (PDOException $erro) {
-                        echo "Erro: " . $erro->getMessage();
-                    }
-                ?>
                 <form action="" method="post">
                     <div class="div-linhas">
                         <div class="grupo-form linha1">
                             <label class="rotulo" for="nome-fornecedor">Nome do fornecerdor:</label>
-                            <input class="caixadeentrada" type="text" id="nome-fornecedor" name="nome-fornecedor" placeholder="Ex: Alfa alimentos">
+                            <input class="caixadeentrada" type="text" id="nome-fornecedor" value="<?= htmlspecialchars($fornecedor['Nome_fornecedor']) ?> name="nome-fornecedor" placeholder="Ex: Alfa alimentos">
                         </div>
                         <div class="grupo-form linha2">
                             <label class="rotulo" for="telefone">telefone:</label>
-                            <input class="caixadeentrada" type="text" id="telefone" name="telefone" placeholder="Ex: (11) 98765-4321">
+                            <input class="caixadeentrada" type="text" id="telefone" value="<?= htmlspecialchars($fornecedor['Telefone']) ?>" name="telefone" placeholder="Ex: (11) 98765-4321">
                         </div>
                     </div>
                     <div class="div-linhas">
                         <div class="grupo-form linha2">
                             <label class="rotulo" for="cnpj">CNPJ:</label>
-                            <input class="caixadeentrada" type="text" id="cnpj" name="cnpj" placeholder="Ex: 01.234.567/0001-89">
+                            <input class="caixadeentrada" type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($fornecedor['cnpj']) ?>" placeholder="Ex: 01.234.567/0001-89">
                         </div>
                         <div class="grupo-form linha1">
                             <label class="rotulo" for="email-de-contato">Email:</label>
-                            <input class="caixadeentrada" type="email" id="email-de-contato" name="email-de-contato" placeholder="Ex: contato@alfasolucoes.com.br">
+                            <input class="caixadeentrada" type="email" value="<?= htmlspecialchars($fornecedor['Email']) ?>" id="email-de-contato" name="email-de-contato" placeholder="Ex: contato@alfasolucoes.com.br">
                         </div>
                     </div>
                     <div class="div-linhas">
                         <div class="grupo-form linha3">
                             <label class="rotulo" for="endereco">Endereço:</label>
-                            <input class="caixadeentrada" type="text" id="endereco" name="endereco" placeholder="Ex: Rua das Indústrias, 1234">
+                            <input class="caixadeentrada" type="text" id="endereco" value="<?= htmlspecialchars($fornecedor['Endereco']) ?>" name="endereco" placeholder="Ex: Rua das Indústrias, 1234">
                         </div>
                     </div>
                     <div id="botoes">

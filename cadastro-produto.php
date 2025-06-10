@@ -112,27 +112,35 @@
                         </div>
                         <div class="grupo-form linha1">
                             <label class="rotulo" for="nome-fornecedor">Fornecedor:</label>
-                            <input class="caixadeentrada" type="email" id="nome-fornecedor" name="nome-fornecedor" placeholder="Ex: fornercerdor123@gmail.com">
+                            <?php
+                                $sqlfornecedor = "SELECT id, Nome_fornecedor FROM fornecedores";
+                                $stmtfor = $conexao->prepare($sqlfornecedor);
+                                $stmtfor->execute();
+                                $fornecedor= $stmtfor->fetchAll(PDO::FETCH_ASSOC);
+                            ?>
+                            <select name="nome-fornecedor" class="select-cadastro" id="fornecedor" required>
+                                <option value="">Selecione a fornecedor</option>
+                                <?php foreach ($fornecedor as $for): ?>
+                                    <option value="<?= htmlspecialchars($for['id']) ?>"><?= htmlspecialchars($for['Nome_fornecedor']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="div-linhas">
                         <div class="grupo-form linha3">
                             <?php
-                                $sql = "SELECT id, nome FROM categorias";
-                                $stmt = $conexao->prepare($sql);
-                                $stmt->execute();
-                                $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                $sqlCategorias = "SELECT id, Nome_categoria FROM categorias";
+                                $stmtCat = $conexao->prepare($sqlCategorias);
+                                $stmtCat->execute();
+                                $categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
                             ?>
                             <label class="rotulo" for="categoria">Categoria:</label>
-                            <select name="categoria" id="categoria">
+                            <select class="select-cadastro" name="categoria" id="categoria" required>
                                 <option value="">Selecione a categoria</option>
-                                <?php
-                                foreach ($categorias as $categoria) {
-                                    echo "<option value='" . $categoria['id'] . "'>" . $categoria['nome'] . "</option>";
-                                }
-                                ?>
+                                <?php foreach ($categorias as $cat): ?>
+                                    <option value="<?= htmlspecialchars($cat['id']) ?>"><?= htmlspecialchars($cat['Nome_categoria']) ?></option>
+                                <?php endforeach; ?>
                             </select>
-
                         </div>
                     </div>
                     <div id="botoes">

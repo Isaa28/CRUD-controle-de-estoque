@@ -60,9 +60,7 @@
                         <td><?= htmlspecialchars($rows->Endereco) ?></td>
                         <td class="acoes">
                             <a class="icons" href="alterar-fornecedor.php"><img src="assets/imagens/icon-pencil.svg" alt="Editar"></a>
-                            <form action="" method="post">
-                                <button value="1" type="submit" name="apagar-linha" class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></button>
-                            </form>
+                            <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
                         </td> 
                     </tr>
                 <?php endwhile; ?>
