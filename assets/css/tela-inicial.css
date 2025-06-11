@@ -16,7 +16,7 @@ body {
 }
 
 .total-cadastros{
-    display: flex;
+    display: block;
     background-color: #006666;
     width: 300px;
     margin: 0 50px 50px 0;
@@ -27,6 +27,9 @@ body {
 
 .total {
     display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: end;
 }
 
 .nomes-resumo{

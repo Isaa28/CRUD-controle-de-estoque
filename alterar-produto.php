@@ -87,7 +87,6 @@
         <div><button id="botao-perfil"><img width="40px" src="assets/imagens/icon-perfil.svg" alt="Perfil"></button></div>
     </div>
 </menu>
-
 <div id="tela-cadastro">
     <div id="imagem-lateral">
         <img id="imagem-cadastro" src="assets/imagens/imagem-produtos.png" alt="Imagem produto">

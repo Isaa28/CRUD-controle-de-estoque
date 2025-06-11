@@ -33,12 +33,7 @@ require_once "protect.php";
     <?php
     require_once 'conexao.php';
 
-    $dados = $conexao->prepare("
-        SELECT p.ID, p.Nome_produto, p.Quantidade_estoque, p.preco,
-               f.Nome_fornecedor, c.Nome_categoria
-        FROM produtos p
-        JOIN fornecedores f ON p.Fornecedor_ID = f.id
-        JOIN categorias c ON p.Categoria_ID = c.id
+    $dados = $conexao->prepare("SELECT p.ID, p.Nome_produto, p.Quantidade_estoque, p.preco, f.Nome_fornecedor, c.Nome_categoria FROM produtos p JOIN fornecedores f ON p.Fornecedor_ID = f.id JOIN categorias c ON p.Categoria_ID = c.id
     ");
     $dados->execute();
     ?>
@@ -54,7 +49,7 @@ require_once "protect.php";
                     <th>Preço</th>
                     <th>Categoria</th>
                     <th>Fornecedor</th>
-                    <th>Ações</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody id="corpodatabela">

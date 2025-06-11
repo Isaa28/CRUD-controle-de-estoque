@@ -119,7 +119,7 @@
                                 $fornecedor= $stmtfor->fetchAll(PDO::FETCH_ASSOC);
                             ?>
                             <select name="nome-fornecedor" class="select-cadastro" id="fornecedor" required>
-                                <option value="">Selecione a fornecedor</option>
+                                <option value="">Selecione o fornecedor</option>
                                 <?php foreach ($fornecedor as $for): ?>
                                     <option value="<?= htmlspecialchars($for['id']) ?>"><?= htmlspecialchars($for['Nome_fornecedor']) ?></option>
                                 <?php endforeach; ?>
