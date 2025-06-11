@@ -100,37 +100,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="div-linhas">
                     <div class="grupo-form linha1">
                         <label class="rotulo" for="nome-fornecedor">Nome do fornecedor:</label>
-                        <input class="caixadeentrada" type="text" id="nome-fornecedor" name="nome_fornecedor"
-                               value="<?= htmlspecialchars($fornecedor['Nome_fornecedor']) ?>"
-                               placeholder="Ex: Alfa alimentos">
+                        <input class="caixadeentrada" type="text" id="nome-fornecedor" name="nome_fornecedor" value="<?= htmlspecialchars($fornecedor['Nome_fornecedor']) ?>" placeholder="Ex: Alfa alimentos">
                     </div>
                     <div class="grupo-form linha2">
                         <label class="rotulo" for="telefone">Telefone:</label>
-                        <input class="caixadeentrada" type="text" id="telefone" name="telefone"
-                               value="<?= htmlspecialchars($fornecedor['Telefone']) ?>"
-                               placeholder="Ex: (11) 98765-4321">
+                        <input class="caixadeentrada" type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($fornecedor['Telefone']) ?>" placeholder="Ex: (11) 98765-4321">
                     </div>
                 </div>
                 <div class="div-linhas">
                     <div class="grupo-form linha2">
                         <label class="rotulo" for="cnpj">CNPJ:</label>
-                        <input class="caixadeentrada" type="text" id="cnpj" name="cnpj"
-                               value="<?= htmlspecialchars($fornecedor['cnpj']) ?>"
-                               placeholder="Ex: 01.234.567/0001-89">
+                        <input class="caixadeentrada" type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($fornecedor['cnpj']) ?>" placeholder="Ex: 01.234.567/0001-89">
                     </div>
                     <div class="grupo-form linha1">
                         <label class="rotulo" for="email-de-contato">Email:</label>
-                        <input class="caixadeentrada" type="email" id="email-de-contato" name="email"
-                               value="<?= htmlspecialchars($fornecedor['Email']) ?>"
-                               placeholder="Ex: contato@alfasolucoes.com.br">
+                        <input class="caixadeentrada" type="email" id="email-de-contato" name="email" value="<?= htmlspecialchars($fornecedor['Email']) ?>" placeholder="Ex: contato@alfasolucoes.com.br">
                     </div>
                 </div>
                 <div class="div-linhas">
                     <div class="grupo-form linha3">
                         <label class="rotulo" for="endereco">Endereço:</label>
-                        <input class="caixadeentrada" type="text" id="endereco" name="endereco"
-                               value="<?= htmlspecialchars($fornecedor['Endereco']) ?>"
-                               placeholder="Ex: Rua das Indústrias, 1234">
+                        <input class="caixadeentrada" type="text" id="endereco" name="endereco" value="<?= htmlspecialchars($fornecedor['Endereco']) ?>" placeholder="Ex: Rua das Indústrias, 1234">
                     </div>
                 </div>
                 <div id="botoes">

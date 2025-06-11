@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="div-linhas">
                     <div class="grupo-form linha1">
                         <label class="rotulo" for="nome-categoria">Nome da categoria:</label>
-                        <input class="caixadeentrada" type="text" id="nome-categoria" name="nome_categoria"value="<?= htmlspecialchars($categoria['Nome_categoria']) ?>">
+                        <input class="caixadeentrada" type="text" placeholder="Ex: Alimentos" id="nome-categoria" name="nome_categoria"value="<?= htmlspecialchars($categoria['Nome_categoria']) ?>">
                     </div>
                 </div>
                 <div id="botoes">

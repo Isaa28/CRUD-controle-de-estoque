@@ -1,74 +1,70 @@
 <?php
-require_once "protect.php";
-require_once "conexao.php";
+    require_once "protect.php";
+    require_once "conexao.php";
 
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header('Location: tabela-produto.php');
-    exit;
-}
-
-$id = intval($_GET['id']);
-
-try {
-    $stmt = $conexao->prepare("SELECT * FROM produtos WHERE ID = :id");
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    $produto = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$produto) {
-        echo "Produto não encontrado.";
+    if (!isset($_GET['id']) || empty($_GET['id'])) {
+        header('Location: tabela-produto.php');
         exit;
     }
-} catch (PDOException $e) {
-    echo "Erro ao buscar produto: " . $e->getMessage();
-    exit;
-}
 
-$sqlfornecedor = "SELECT id, Nome_fornecedor FROM fornecedores";
-$stmtfor = $conexao->prepare($sqlfornecedor);
-$stmtfor->execute();
-$fornecedores = $stmtfor->fetchAll(PDO::FETCH_ASSOC);
+    $id = intval($_GET['id']);
 
-$sqlCategorias = "SELECT id, Nome_categoria FROM categorias";
-$stmtCat = $conexao->prepare($sqlCategorias);
-$stmtCat->execute();
-$categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
+    try {
+        $stmt = $conexao->prepare("SELECT * FROM produtos WHERE ID = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $produto = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim($_POST['nome_produto']);
-    $quantidade = trim($_POST['quantidade']);
-    $preco = trim($_POST['preco']);
-    $id_fornecedor = trim($_POST['nome_fornecedor']);
-    $id_categoria = trim($_POST['categoria']);
+        if (!$produto) {
+            echo "Produto não encontrado.";
+            exit;
+        }
+    } catch (PDOException $e) {
+        echo "Erro ao buscar produto: " . $e->getMessage();
+        exit;
+    }
 
-    if ($nome === '' || $quantidade === '' || $preco === '' || $id_fornecedor === '' || $id_categoria === '') {
-        $erro = "Todos os campos são obrigatórios.";
-    } else {
-        try {
-            $update = $conexao->prepare("
-                UPDATE produtos 
-                SET Nome_produto = :nome, Quantidade_estoque = :quantidade, Preco = :preco, 
-                    Fornecedor_ID = :fornecedor, Categoria_ID = :categoria 
-                WHERE ID = :id
-            ");
-            $update->bindValue(':nome', $nome);
-            $update->bindValue(':quantidade', $quantidade);
-            $update->bindValue(':preco', $preco);
-            $update->bindValue(':fornecedor', $id_fornecedor);
-            $update->bindValue(':categoria', $id_categoria);
-            $update->bindValue(':id', $id, PDO::PARAM_INT);
+    $sqlfornecedor = "SELECT id, Nome_fornecedor FROM fornecedores";
+    $stmtfor = $conexao->prepare($sqlfornecedor);
+    $stmtfor->execute();
+    $fornecedores = $stmtfor->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($update->execute()) {
-                header('Location: tabela-produto.php');
-                exit;
-            } else {
-                $erro = "Erro ao atualizar produto.";
+    $sqlCategorias = "SELECT id, Nome_categoria FROM categorias";
+    $stmtCat = $conexao->prepare($sqlCategorias);
+    $stmtCat->execute();
+    $categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nome = trim($_POST['nome_produto']);
+        $quantidade = trim($_POST['quantidade']);
+        $preco = trim($_POST['preco']);
+        $id_fornecedor = trim($_POST['nome_fornecedor']);
+        $id_categoria = trim($_POST['categoria']);
+
+        if ($nome === '' || $quantidade === '' || $preco === '' || $id_fornecedor === '' || $id_categoria === '') {
+            $erro = "Todos os campos são obrigatórios.";
+        } else {
+            try {
+                $update = $conexao->prepare("UPDATE produtos SET Nome_produto = :nome, Quantidade_estoque = :quantidade, Preco = :preco, Fornecedor_ID = :fornecedor, Categoria_ID = :categoria WHERE ID = :id
+                ");
+                $update->bindValue(':nome', $nome);
+                $update->bindValue(':quantidade', $quantidade);
+                $update->bindValue(':preco', $preco);
+                $update->bindValue(':fornecedor', $id_fornecedor);
+                $update->bindValue(':categoria', $id_categoria);
+                $update->bindValue(':id', $id, PDO::PARAM_INT);
+
+                if ($update->execute()) {
+                    header('Location: tabela-produto.php');
+                    exit;
+                } else {
+                    $erro = "Erro ao atualizar produto.";
+                }
+            } catch (PDOException $e) {
+                $erro = "Erro: " . $e->getMessage();
             }
-        } catch (PDOException $e) {
-            $erro = "Erro: " . $e->getMessage();
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -94,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div id="tela-cadastro">
     <div id="imagem-lateral">
-        <img id="imagem-cadastro" src="assets/imagens/imagem-produto.png" alt="Imagem produto">
+        <img id="imagem-cadastro" src="assets/imagens/imagem-produtos.png" alt="Imagem produto">
     </div>
     <div id="caixa-cadastro">
         <div id="formulario">
@@ -106,22 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="div-linhas">
                     <div class="grupo-form linha1">
                         <label class="rotulo" for="nome_produto">Nome do produto:</label>
-                        <input class="caixadeentrada" type="text" id="nome_produto" name="nome_produto"
-                               value="<?= htmlspecialchars($produto['Nome_produto']) ?>"
-                               placeholder="Ex: Feijão Carioca - 1kg">
+                        <input class="caixadeentrada" type="text" id="nome_produto" name="nome_produto" value="<?= htmlspecialchars($produto['Nome_produto']) ?>" placeholder="Ex: Feijão Carioca - 1kg">
                     </div>
                     <div class="grupo-form linha2">
                         <label class="rotulo" for="preco">Preço:</label>
-                        <input class="caixadeentrada" type="number" id="preco" name="preco"
-                               value="<?= htmlspecialchars($produto['Preco']) ?>" step="0.01" placeholder="Ex: 9.50">
+                        <input class="caixadeentrada" type="number" id="preco" name="preco" value="<?= htmlspecialchars($produto['Preco']) ?>" step="0.01" placeholder="Ex: 9.50">
                     </div>
                 </div>
 
                 <div class="div-linhas">
                     <div class="grupo-form linha2">
                         <label class="rotulo" for="quantidade">Quantidade:</label>
-                        <input class="caixadeentrada" type="number" id="quantidade" name="quantidade"
-                               value="<?= htmlspecialchars($produto['Quantidade_estoque']) ?>" placeholder="Ex: 80">
+                        <input class="caixadeentrada" type="number" id="quantidade" name="quantidade" value="<?= htmlspecialchars($produto['Quantidade_estoque']) ?>" placeholder="Ex: 80">
                     </div>
                     <div class="grupo-form linha1">
                         <label class="rotulo" for="nome_fornecedor">Fornecedor:</label>

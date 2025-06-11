@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div id="botoes">
-                        <a id="cancelar-cadastrar" href="tela-inicial.php">Cancelar</a>
+                        <a id="cancelar-cadastrar" href="tabela-produto.php">Cancelar</a>
                         <button id="salvar" type="submit">Salvar</button>
                     </div>
                 </form>    
