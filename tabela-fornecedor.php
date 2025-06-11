@@ -59,9 +59,13 @@
                         <td><?= htmlspecialchars($rows->Telefone) ?></td>
                         <td><?= htmlspecialchars($rows->Endereco) ?></td>
                         <td class="acoes">
-                            <a class="icons" href="alterar-fornecedor.php"><img src="assets/imagens/icon-pencil.svg" alt="Editar"></a>
-                            <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
-                        </td> 
+                            <a class="icons" href="alterar-fornecedor.php?id=<?= $rows->ID ?>">
+                                <img src="assets/imagens/icon-pencil.svg" alt="Editar">
+                            </a>
+                            <a class="icons" href="excluir-fornecedor.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?');">
+                                <img src="assets/imagens/icon-trash.svg" alt="Excluir">
+                            </a>
+                        </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>

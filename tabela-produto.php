@@ -1,21 +1,19 @@
 <?php
-
-    require_once "protect.php";
-
+require_once "protect.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Produtos</title>
     <link rel="stylesheet" href="assets/css/tabelas.css">
     <link rel="stylesheet" href="assets/css/menu.css">
 </head>
 <body>
     <menu id="menu">
         <div id="logo">
-            <img width = "110px" src="assets/imagens/logo.png" alt="Logo">
+            <img width="110px" src="assets/imagens/logo.png" alt="Logo">
         </div>
         <div id="menu-links">
             <li><a href="tela-inicial.php">Home</a></li>
@@ -31,17 +29,20 @@
             </div>
         </div>
     </menu>
+
     <?php
-        require_once 'conexao.php';
-        $dados = $conexao->prepare("
-        SELECT p.Nome_produto, p.Quantidade_estoque, p.preco,
-            f.Nome_fornecedor, c.Nome_categoria
+    require_once 'conexao.php';
+
+    $dados = $conexao->prepare("
+        SELECT p.ID, p.Nome_produto, p.Quantidade_estoque, p.preco,
+               f.Nome_fornecedor, c.Nome_categoria
         FROM produtos p
         JOIN fornecedores f ON p.Fornecedor_ID = f.id
         JOIN categorias c ON p.Categoria_ID = c.id
     ");
-        $dados->execute();
+    $dados->execute();
     ?>
+
     <h1 id="titulo">Produtos</h1>
     <a id="cancelar-cadastrar" href="cadastro-produto.php">Cadastrar</a>
     <div id="div-tabela">
@@ -53,7 +54,7 @@
                     <th>Preço</th>
                     <th>Categoria</th>
                     <th>Fornecedor</th>
-                    <th> </th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody id="corpodatabela">
@@ -65,13 +66,16 @@
                         <td><?= htmlspecialchars($rows->Nome_categoria) ?></td>
                         <td><?= htmlspecialchars($rows->Nome_fornecedor) ?></td>
                         <td class="acoes">
-                            <a class="icons" href="alterar-produto.php"><img src="assets/imagens/icon-pencil.svg" alt="Editar"></a>
-                            <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
+                            <a class="icons" href="alterar-produto.php?id=<?= $rows->ID ?>">
+                                <img src="assets/imagens/icon-pencil.svg" alt="Editar">
+                            </a>
+                            <a class="icons" href="excluir-produto.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este produto?');">
+                                <img src="assets/imagens/icon-trash.svg" alt="Excluir">
+                            </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
-
         </table>
     </div>
 </body>

@@ -51,8 +51,12 @@
                     <tr>
                         <td><?= htmlspecialchars($rows->Nome_categoria) ?></td>
                         <td class="acoes">
-                            <a class="icons" href="alterar-categoria.php"><img src="assets/imagens/icon-pencil.svg" alt="Editar"></a>
-                            <a class="icons"><img src="assets/imagens/icon-trash.svg" alt="Excluir"></a>
+                            <a class="icons" href="alterar-categoria.php?id=<?= $rows->ID ?>">
+                                <img src="assets/imagens/icon-pencil.svg" alt="Editar">
+                            </a>
+                            <a class="icons" href="excluir-categoria.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">
+                                <img src="assets/imagens/icon-trash.svg" alt="Excluir">
+                            </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

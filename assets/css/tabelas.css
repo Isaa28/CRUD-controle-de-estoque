@@ -6,31 +6,31 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #1B2E35;
+    margin: 0;
+    padding: 0;
+    background-color: #1B2E35;
 }
 
 #titulo {
-  text-align: center;
-  font-size: 50px;
-  margin-top: 40px;
-  margin-bottom: 25px;
-  color: #ffffff;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    color: #ffffff;
 }
 
 #div-tabela {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
 }
 
 #tabela {
-  width: 90%;
-  max-width: 2000px;
-  margin-top: 30px;
-  border-collapse: collapse;
-  overflow: hidden;
+    width: 90%;
+    max-width: 2000px;
+    margin-top: 30px;
+    border-collapse: collapse;
+    overflow: hidden;
 }
 
 #tabela thead {
@@ -40,13 +40,13 @@ body {
 }
 
 #tabela th, #tabela td {
-  padding: 12px 20px;
-  font-size: 14px;
-  text-align: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    text-align: center;
 }
 
 #tabela th:last-child, #tabela td:last-child {
-  padding-right: 20px;
+    padding-right: 20px;
 }
 
 #tabela tbody tr:nth-child(even) {
@@ -65,16 +65,16 @@ body {
 }
 
 .acoes {
-  display: flex;
-  gap: 20px;
-  justify-content: flex-end;
-  align-items: center;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .acoes img {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
 }
 
 #cancelar-cadastrar{
