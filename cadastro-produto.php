@@ -56,9 +56,7 @@
 
                                 if($resultado === 0) {
                                     
-                                    $dados = $conexao->prepare('
-                                        INSERT INTO produtos (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID) 
-                                        VALUES (:nome, :quantidade, :preco, :nome_fornecedor, :categoria)
+                                    $dados = $conexao->prepare('INSERT INTO produtos (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID) VALUES (:nome, :quantidade, :preco, :nome_fornecedor, :categoria)
                                     ');
                                     $dados->bindValue(':nome', $nome); 
                                     $dados->bindValue(':quantidade', $quantidade);

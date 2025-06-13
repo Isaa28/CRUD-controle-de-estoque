@@ -1,59 +1,59 @@
 <?php
-require_once "protect.php";
-require_once "conexao.php";
+    require_once "protect.php";
+    require_once "conexao.php";
 
-if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header('Location: tabela-fornecedor.php');
-    exit;
-}
-
-$id = $_GET['id'];
-try {
-    $stmt = $conexao->prepare("SELECT * FROM fornecedores WHERE id = :id");
-    $stmt->bindValue(':id', $id);
-    $stmt->execute();
-    $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$fornecedor) {
-        echo "Fornecedor não encontrado.";
+    if (!isset($_GET['id']) || empty($_GET['id'])) {
+        header('Location: tabela-fornecedor.php');
         exit;
     }
-} catch (PDOException $e) {
-    echo "Erro ao buscar fornecedor: " . $e->getMessage();
-    exit;
-}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim($_POST['nome_fornecedor']);
-    $email = trim($_POST['email']);
-    $cnpj = trim($_POST['cnpj']);
-    $telefone = trim($_POST['telefone']);
-    $endereco = trim($_POST['endereco']);
+    $id = $_GET['id'];
+    try {
+        $stmt = $conexao->prepare("SELECT * FROM fornecedores WHERE id = :id");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (empty($nome) || empty($email) || empty($cnpj) || empty($telefone) || empty($endereco)) {
-        $erro = "Todos os campos são obrigatórios.";
-    } else {
-        try {
-            $update = $conexao->prepare("UPDATE fornecedores SET Nome_fornecedor = :nome, Email = :email, cnpj = :cnpj, Telefone = :telefone, Endereco = :endereco WHERE id = :id
-            ");
-            $update->bindValue(':nome', $nome);
-            $update->bindValue(':email', $email);
-            $update->bindValue(':cnpj', $cnpj);
-            $update->bindValue(':telefone', $telefone);
-            $update->bindValue(':endereco', $endereco);
-            $update->bindValue(':id', $id);
+        if (!$fornecedor) {
+            header("Location:tabela-fornecedor.php?");
+            exit;
+        }
+    } catch (PDOException $e) {
+        echo "Erro ao buscar fornecedor: " . $e->getMessage();
+        exit;
+    }
 
-            if ($update->execute()) {
-                header('Location: tabela-fornecedor.php');
-                exit;
-            } else {
-                $erro = "Erro ao atualizar fornecedor.";
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nome = trim($_POST['nome_fornecedor']);
+        $email = trim($_POST['email']);
+        $cnpj = trim($_POST['cnpj']);
+        $telefone = trim($_POST['telefone']);
+        $endereco = trim($_POST['endereco']);
+
+        if (empty($nome) || empty($email) || empty($cnpj) || empty($telefone) || empty($endereco)) {
+            $erro = "Todos os campos são obrigatórios.";
+        } else {
+            try {
+                $update = $conexao->prepare("UPDATE fornecedores SET Nome_fornecedor = :nome, Email = :email, cnpj = :cnpj, Telefone = :telefone, Endereco = :endereco WHERE id = :id
+                ");
+                $update->bindValue(':nome', $nome);
+                $update->bindValue(':email', $email);
+                $update->bindValue(':cnpj', $cnpj);
+                $update->bindValue(':telefone', $telefone);
+                $update->bindValue(':endereco', $endereco);
+                $update->bindValue(':id', $id);
+
+                if ($update->execute()) {
+                    header('Location: tabela-fornecedor.php');
+                    exit;
+                } else {
+                    $erro = "Erro ao atualizar fornecedor.";
+                }
+            } catch (PDOException $e) {
+                $erro = "Erro: " . $e->getMessage();
             }
-        } catch (PDOException $e) {
-            $erro = "Erro: " . $e->getMessage();
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

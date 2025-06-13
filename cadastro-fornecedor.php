@@ -58,9 +58,7 @@
 
                                 if($resultado === 0) {
                                     
-                                    $dados = $conexao->prepare('
-                                        INSERT INTO fornecedores (Nome_fornecedor, Email, Telefone, cnpj, Endereco) 
-                                        VALUES (:nome, :email, :telefone, :cnpj, :endereco)
+                                    $dados = $conexao->prepare('INSERT INTO fornecedores (Nome_fornecedor, Email, Telefone, cnpj, Endereco) VALUES (:nome, :email, :telefone, :cnpj, :endereco)
                                     ');
                                     $dados->bindValue(':nome', $nomeFornecedor); 
                                     $dados->bindValue(':email', $email);

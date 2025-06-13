@@ -1,7 +1,7 @@
 <?php
 require_once 'conexao.php';
 
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) || !empty($_GET['id'])) {
     $id = $_GET['id'];
 
     $stmt = $conexao->prepare("DELETE FROM categorias WHERE ID = ?");
