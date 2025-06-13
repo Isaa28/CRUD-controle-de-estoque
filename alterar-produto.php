@@ -7,11 +7,11 @@
         exit;
     }
 
-    $id = intval($_GET['id']);
+    $id = $_GET['id'];
 
     try {
         $stmt = $conexao->prepare("SELECT * FROM produtos WHERE ID = :id");
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
         $produto = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -41,7 +41,7 @@
         $id_fornecedor = trim($_POST['nome_fornecedor']);
         $id_categoria = trim($_POST['categoria']);
 
-        if ($nome === '' || $quantidade === '' || $preco === '' || $id_fornecedor === '' || $id_categoria === '') {
+        if (empty($nome) || empty($quantidade) || empty($preco) || empty($id_fornecedor) || empty($id_categoria)) {
             $erro = "Todos os campos são obrigatórios.";
         } else {
             try {
@@ -52,7 +52,7 @@
                 $update->bindValue(':preco', $preco);
                 $update->bindValue(':fornecedor', $id_fornecedor);
                 $update->bindValue(':categoria', $id_categoria);
-                $update->bindValue(':id', $id, PDO::PARAM_INT);
+                $update->bindValue(':id', $id);
 
                 if ($update->execute()) {
                     header('Location: tabela-produto.php');

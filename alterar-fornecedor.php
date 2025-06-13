@@ -7,10 +7,10 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
     exit;
 }
 
-$id = intval($_GET['id']);
+$id = $_GET['id'];
 try {
     $stmt = $conexao->prepare("SELECT * FROM fornecedores WHERE id = :id");
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id);
     $stmt->execute();
     $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -30,21 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefone = trim($_POST['telefone']);
     $endereco = trim($_POST['endereco']);
 
-    if ($nome == '' || $email == '') {
-        $erro = "Nome e email são obrigatórios.";
+    if (empty($nome) || empty($email) || empty($cnpj) || empty($telefone) || empty($endereco)) {
+        $erro = "Todos os campos são obrigatórios.";
     } else {
         try {
-            $update = $conexao->prepare("
-                UPDATE fornecedores 
-                SET Nome_fornecedor = :nome, Email = :email, cnpj = :cnpj, Telefone = :telefone, Endereco = :endereco
-                WHERE id = :id
+            $update = $conexao->prepare("UPDATE fornecedores SET Nome_fornecedor = :nome, Email = :email, cnpj = :cnpj, Telefone = :telefone, Endereco = :endereco WHERE id = :id
             ");
             $update->bindValue(':nome', $nome);
             $update->bindValue(':email', $email);
             $update->bindValue(':cnpj', $cnpj);
             $update->bindValue(':telefone', $telefone);
             $update->bindValue(':endereco', $endereco);
-            $update->bindValue(':id', $id, PDO::PARAM_INT);
+            $update->bindValue(':id', $id);
 
             if ($update->execute()) {
                 header('Location: tabela-fornecedor.php');
