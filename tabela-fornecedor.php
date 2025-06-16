@@ -11,6 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/tabelas.css">
     <link rel="stylesheet" href="assets/css/menu.css">
+    <script src="https://kit.fontawesome.com/2e3161fd5b.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <menu id="menu">
@@ -60,16 +61,15 @@
                         <td><?= htmlspecialchars($rows->Endereco) ?></td>
                         <td class="acoes">
                             <a class="icons" href="alterar-fornecedor.php?id=<?= $rows->ID ?>">
-                                <img src="assets/imagens/icon-pencil.svg" alt="Editar">
+                                <i class="fa-solid fa-trash"></i>
                             </a>
                             <a class="icons" href="excluir-fornecedor.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?');">
-                                <img src="assets/imagens/icon-trash.svg" alt="Excluir">
+                                <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
-
         </table>
     </div>
 </body>
