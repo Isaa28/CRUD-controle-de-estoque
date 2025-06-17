@@ -3,7 +3,7 @@
     require_once "conexao.php";
 
     if (!isset($_GET['id']) || empty($_GET['id'])) {
-        header('Location: tabela-fornecedor.php');
+        header('Location: tabela-fornecedor.php?mensagem=1');
         exit;
     }
 
@@ -15,7 +15,7 @@
         $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$fornecedor) {
-            header("Location:tabela-fornecedor.php?");
+            header("Location:tabela-fornecedor.php?mensagem=1");
             exit;
         }
     } catch (PDOException $e) {
@@ -44,10 +44,10 @@
                 $update->bindValue(':id', $id);
 
                 if ($update->execute()) {
-                    header('Location: tabela-fornecedor.php');
+                    header('Location: tabela-fornecedor.php?mensagem=2');
                     exit;
                 } else {
-                    $erro = "Erro ao atualizar fornecedor.";
+                    header('Location: tabela-fornecedor.php?mensagem=3');
                 }
             } catch (PDOException $e) {
                 $erro = "Erro: " . $e->getMessage();
@@ -122,7 +122,7 @@
                 </div>
                 <div id="botoes">
                     <a id="cancelar-cadastrar" href="tabela-fornecedor.php">Cancelar</a>
-                    <button id="salvar" type="submit">Salvar</button>
+                    <button onclick="window.location.href='cadastro-categoria.php'" id="salvar" type="submit">Salvar</button>
                 </div>
             </form>
         </div>

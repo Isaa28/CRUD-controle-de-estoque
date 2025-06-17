@@ -21,8 +21,10 @@ body {
 
 #div-tabela {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 40px;
+    align-items: center;
 }
 
 #tabela {
@@ -54,6 +56,7 @@ body {
     color: #1B2E35;
 }
 
+
 #tabela tbody tr:nth-child(odd) {
     background-color: #2E3A3D;
     color: #D0D0D0;
@@ -64,9 +67,17 @@ body {
     color: #D0D0D0;
 }
 
+#tabela tbody tr td .fa-solid {
+    color: inherit !important;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    fill: currentColor !important;
+}
+
 .acoes {
     display: flex;
     gap: 20px;
+    color: inherit !important;
     justify-content: flex-end;
     align-items: center;
 }
@@ -92,4 +103,14 @@ body {
 #cancelar-cadastrar:hover {
     background-color: #143D4A;
     color: #FEFEFE;
+}
+
+.mensagem{
+    display: block;
+    width: 90%;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgb(255, 176, 176);
+    color: rgb(255, 0, 0);
+    border-radius: 5px;
 }

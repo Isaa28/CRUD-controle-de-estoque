@@ -38,8 +38,17 @@
         $dados->execute();
     ?>
     <h1 id="titulo">Fornecedores</h1>
-    <a id="cancelar-cadastrar" href="cadastro-fornecedor.php">Cadastrar</a>
+    <a id="cancelar-cadastrar" href="cadastro-fornecedor.php">Cadastrar</a> 
     <div id="div-tabela">
+        <?php
+            if(isset($_GET['mensagem']) && $_GET['mensagem'] == 1){
+                echo "<div class='mensagem'>Fornecedor não encontrado.</div>";
+            }elseif(isset($_GET['mensagem']) && $_GET['mensagem'] == 2){
+                echo "<div class='mensagem'>Fornecedor alterado com sucesso!</div>";
+            }elseif(isset($_GET['mensagem']) && $_GET['mensagem'] == 3){
+                echo "<div class='mensagem'>Não foi possível alterar o fornecedor.</div>";
+            }
+        ?>
         <table id="tabela">
             <thead id="cabeca-tabela">
                 <tr>
@@ -60,10 +69,10 @@
                         <td><?= htmlspecialchars($rows->Telefone) ?></td>
                         <td><?= htmlspecialchars($rows->Endereco) ?></td>
                         <td class="acoes">
-                            <a class="icons" href="alterar-fornecedor.php?id=<?= $rows->ID ?>">
-                                <i class="fa-solid fa-trash"></i>
+                            <a class="icons-pen" href="alterar-fornecedor.php?id=<?= $rows->ID ?>">
+                                <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a class="icons" href="excluir-fornecedor.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?');">
+                            <a class="icons-trash" href="excluir-fornecedor.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?');">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
