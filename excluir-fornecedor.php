@@ -7,9 +7,9 @@ if (isset($_GET['id']) || !empty($_GET['id'])) {
     $stmt = $conexao->prepare("DELETE FROM fornecedores WHERE ID = ?");
     $stmt->execute([$id]);
 
-    header("Location: tabela-fornecedor.php");
+    header('Location: tabela-fornecedor.php?mensagemsucesso=Fornecedor excluido com sucesso!');
     exit();
 } else {
-    echo "ID inválido.";
+    header('Location: tabela-fornecedor.php?mensagemerro=Fornecedor não encontrado.');
 }
 ?>

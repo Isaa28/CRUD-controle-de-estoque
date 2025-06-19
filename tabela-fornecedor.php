@@ -41,12 +41,13 @@
     <a id="cancelar-cadastrar" href="cadastro-fornecedor.php">Cadastrar</a> 
     <div id="div-tabela">
         <?php
-            if(isset($_GET['mensagem']) && $_GET['mensagem'] == 1){
-                echo "<div class='mensagem'>Fornecedor não encontrado.</div>";
-            }elseif(isset($_GET['mensagem']) && $_GET['mensagem'] == 2){
-                echo "<div class='mensagem'>Fornecedor alterado com sucesso!</div>";
-            }elseif(isset($_GET['mensagem']) && $_GET['mensagem'] == 3){
-                echo "<div class='mensagem'>Não foi possível alterar o fornecedor.</div>";
+            if (!empty($_GET['mensagemerro'])) {
+                $mensagem = htmlspecialchars($_GET['mensagemerro']);
+                echo "<div class='mensagem-erro'>{$mensagem}</div>";
+            }
+            if (!empty($_GET['mensagemsucesso'])) {
+                $mensagem = htmlspecialchars($_GET['mensagemsucesso']);
+                echo "<div class='mensagem-sucesso'>{$mensagem}</div>";
             }
         ?>
         <table id="tabela">

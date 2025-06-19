@@ -67,24 +67,33 @@ body {
     color: #D0D0D0;
 }
 
-#tabela tbody tr td .fa-solid {
-    color: inherit !important;
-    transition: color 0.3s ease;
-    cursor: pointer;
-    fill: currentColor !important;
+#tabela .acoes a {
+    color: inherit;
+    text-decoration: none;
 }
 
+#tabela .acoes i {
+    color: #D0D0D0;
+    font-size: 18px;
+    transition: color 0.2s;
+}
+
+#tabela tbody tr:nth-child(odd) .acoes i {
+    color: #D0D0D0;
+}
+
+#tabela tbody tr:nth-child(even) .acoes i {
+    color: #1B2E35;
+}
+
+#tabela tbody tr:hover .acoes i {
+    color: #D0D0D0;
+}
 .acoes {
     display: flex;
     gap: 20px;
-    color: inherit !important;
     justify-content: flex-end;
     align-items: center;
-}
-
-.acoes img {
-    width: 16px;
-    height: 16px;
     cursor: pointer;
 }
 
@@ -105,12 +114,22 @@ body {
     color: #FEFEFE;
 }
 
-.mensagem{
+.mensagem-erro{
     display: block;
     width: 90%;
     padding: 20px;
     margin-top: 20px;
-    background-color: rgb(255, 176, 176);
-    color: rgb(255, 0, 0);
+    background-color: #ffb0b0;
+    color: #ff0000;
+    border-radius: 5px;
+}
+
+.mensagem-sucesso{
+    display: block;
+    width: 90%;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgb(179, 255, 176);
+    color: rgb(11, 129, 27);
     border-radius: 5px;
 }
