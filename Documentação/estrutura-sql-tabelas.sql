@@ -5,15 +5,14 @@ CREATE TABLE Usuario (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nome_da_empresa VARCHAR(100) NOT NULL,
     cnpj VARCHAR(18) NOT NULL UNIQUE,
-    Senha VARCHAR(100) NOT NULL UNIQUE
+    Senha VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Categorias (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    Nome_categoria VARCHAR(100) NOT NULL UNIQUE,
+    Nome_categoria VARCHAR(100) NOT NULL,
     Usuario_ID INT NOT NULL,
-    CONSTRAINT fk_categoria_usuario
-        FOREIGN KEY (Usuario_ID) REFERENCES Usuario(ID)
+    FOREIGN KEY (Usuario_ID) REFERENCES Usuario(ID)
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -27,15 +26,13 @@ CREATE TABLE Fornecedores (
 );
 
 CREATE TABLE fornecedor_usuario (
-    Fornecedor_ID INT NOT NULL,
-    Usuario_ID INT NOT NULL,
-    CONSTRAINT fk_fornecedor_usuario_usuario
-        FOREIGN KEY (Usuario_ID) REFERENCES Usuario(ID)
+    fornecedor_ID INT NOT NULL,
+    usuario_ID INT NOT NULL,
+    PRIMARY KEY (fornecedor_ID, usuario_ID),
+    FOREIGN KEY (fornecedor_ID) REFERENCES Fornecedores(ID)
         ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_fornecedor_usuario_fornecedor
-        FOREIGN KEY (Fornecedor_ID) REFERENCES Fornecedores(ID)
-        ON DELETE RESTRICT ON UPDATE CASCADE,
-    PRIMARY KEY (Fornecedor_ID, Usuario_ID)
+    FOREIGN KEY (usuario_ID) REFERENCES Usuario(ID)
+        ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE Produtos (
@@ -46,14 +43,11 @@ CREATE TABLE Produtos (
     Fornecedor_ID INT NOT NULL,
     Categoria_ID INT NOT NULL,
     Usuario_ID INT NOT NULL,
-    CONSTRAINT fk_produto_fornecedor
-        FOREIGN KEY (Fornecedor_ID) REFERENCES Fornecedores(ID)
+    FOREIGN KEY (Fornecedor_ID) REFERENCES Fornecedores(ID)
         ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_produto_categoria
-        FOREIGN KEY (Categoria_ID) REFERENCES Categorias(ID)
+    FOREIGN KEY (Categoria_ID) REFERENCES Categorias(ID)
         ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_produto_usuario
-        FOREIGN KEY (Usuario_ID) REFERENCES Usuario(ID)
+    FOREIGN KEY (Usuario_ID) REFERENCES Usuario(ID)
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -63,6 +57,7 @@ CREATE TABLE Entrada (
     Produto_ID INT NOT NULL,
     quantidade_estoque INT NOT NULL,
     FOREIGN KEY (Produto_ID) REFERENCES Produtos(ID)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Saida (
@@ -71,8 +66,5 @@ CREATE TABLE Saida (
     Produto_ID INT NOT NULL,
     quantidade_estoque INT NOT NULL,
     FOREIGN KEY (Produto_ID) REFERENCES Produtos(ID)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-SELECT * FROM produtos;
-SELECT * FROM fornecedores;
-SELECT * FROM categorias;
