@@ -9,6 +9,7 @@ require_once "protect.php";
     <title>Produtos</title>
     <link rel="stylesheet" href="assets/css/tabelas.css">
     <link rel="stylesheet" href="assets/css/menu.css">
+    <script src="https://kit.fontawesome.com/2e3161fd5b.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <menu id="menu">
@@ -32,15 +33,24 @@ require_once "protect.php";
 
     <?php
     require_once 'conexao.php';
-
-    $dados = $conexao->prepare("SELECT p.ID, p.Nome_produto, p.Quantidade_estoque, p.preco, f.Nome_fornecedor, c.Nome_categoria FROM produtos p JOIN fornecedores f ON p.Fornecedor_ID = f.id JOIN categorias c ON p.Categoria_ID = c.id
-    ");
+    $dados = $conexao->prepare("SELECT p.ID, p.Nome_produto, p.Quantidade_estoque, p.preco, f.Nome_fornecedor, c.Nome_categoria FROM produtos p JOIN fornecedores f ON p.Fornecedor_ID = f.id JOIN categorias c ON p.Categoria_ID = c.id WHERE p.Usuario_ID = :id");
+    $dados->bindValue(":id", $_SESSION['id']);
     $dados->execute();
     ?>
 
     <h1 id="titulo">Produtos</h1>
     <a id="cancelar-cadastrar" href="cadastro-produto.php">Cadastrar</a>
     <div id="div-tabela">
+    <?php
+        if (!empty($_GET['mensagemerro'])) {
+            $mensagem = htmlspecialchars($_GET['mensagemerro']);
+            echo "<div class='mensagem-erro'>{$mensagem}</div>";
+        }
+        if (!empty($_GET['mensagemsucesso'])) {
+            $mensagem = htmlspecialchars($_GET['mensagemsucesso']);
+            echo "<div class='mensagem-sucesso'>{$mensagem}</div>";
+        }
+    ?>    
         <table id="tabela">
             <thead id="cabeca-tabela">
                 <tr>
@@ -62,10 +72,10 @@ require_once "protect.php";
                         <td><?= htmlspecialchars($rows->Nome_fornecedor) ?></td>
                         <td class="acoes">
                             <a class="icons" href="alterar-produto.php?id=<?= $rows->ID ?>">
-                                <img src="assets/imagens/icon-pencil.svg" alt="Editar">
+                                <i class="fa-solid fa-pen"></i>
                             </a>
                             <a class="icons" href="excluir-produto.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este produto?');">
-                                <img src="assets/imagens/icon-trash.svg" alt="Excluir">
+                                <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
                     </tr>

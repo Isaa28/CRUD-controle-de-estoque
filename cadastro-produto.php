@@ -49,20 +49,22 @@
                             
                             if(!empty($nome) && !empty($nome_fornecedor) && !empty($quantidade) && !empty($categoria) && !empty($preco)) {
                                 
-                                $consulta = $conexao->prepare("SELECT * FROM produtos WHERE Nome_produto = :verificando_produto");
+                                $consulta = $conexao->prepare("SELECT * FROM produtos WHERE Nome_produto = :verificando_produto AND Usuario_ID = :id");
+                                $consulta->bindValue(':id', $_SESSION['id']);
                                 $consulta->bindValue(':verificando_produto', $nome);
                                 $consulta->execute();
                                 $resultado = $consulta->rowCount();
 
                                 if($resultado === 0) {
                                     
-                                    $dados = $conexao->prepare('INSERT INTO produtos (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID) VALUES (:nome, :quantidade, :preco, :nome_fornecedor, :categoria)
+                                    $dados = $conexao->prepare('INSERT INTO produtos (Nome_produto, Quantidade_estoque, preco, Fornecedor_ID, Categoria_ID, usuario_ID) VALUES (:nome, :quantidade, :preco, :nome_fornecedor, :categoria, :id_usuario)
                                     ');
                                     $dados->bindValue(':nome', $nome); 
                                     $dados->bindValue(':quantidade', $quantidade);
                                     $dados->bindValue(':preco', $preco);
                                     $dados->bindValue(':nome_fornecedor',  $nome_fornecedor);
                                     $dados->bindValue(':categoria', $categoria);
+                                    $dados->bindValue(':id_usuario', $_SESSION['id']);
                                     
                                     if($dados->execute()) {
                                         if($dados->rowCount() > 0) {
@@ -71,18 +73,20 @@
                                             $preco = null;
                                             $nome_fornecedor= null;
                                             $categoria = null;
+
+                                            header("Location: tabela-produto.php?mensagemsucesso=Produto cadastrado com sucesso.");
                                         } else {
-                                            echo '<div class="erro">Erro ao tentar efetivar cadastro</div>';
+                                            header("Location: tabela-produto.php?mensagemerro=Erro ao tentar cadastrar produto .");
                                         }
                                     } else {
                                         throw new PDOException("Erro: Não foi possível executar a declaração SQL");
                                     }
                                 } else {
-                                    echo '<div class="erro">[ERRO] Produto já cadastrado.</div>';
+                                   header("Location: tabela-produto.php?mensagemerro=Produto já cadastrado por você.");
                                 }
 
                             } else {
-                                echo '<div class="erro">[ERRO] Dados incompletos.</div>';
+                                echo '<div class="erro">Preencha todas as informações.</div>';
                             }
                         } else {
 
@@ -111,10 +115,10 @@
                         <div class="grupo-form linha1">
                             <label class="rotulo" for="nome-fornecedor">Fornecedor:</label>
                             <?php
-                                $sqlfornecedor = "SELECT id, Nome_fornecedor FROM fornecedores";
-                                $stmtfor = $conexao->prepare($sqlfornecedor);
+                                $stmtfor = $conexao->prepare("SELECT f.id, f.Nome_fornecedor FROM fornecedores f INNER JOIN fornecedor_usuario fu ON fu.Fornecedor_ID = f.id WHERE fu.Usuario_ID = :id_usuario");
+                                $stmtfor->bindValue(':id_usuario', $_SESSION['id']);
                                 $stmtfor->execute();
-                                $fornecedor= $stmtfor->fetchAll(PDO::FETCH_ASSOC);
+                                $fornecedor = $stmtfor->fetchAll(PDO::FETCH_ASSOC);
                             ?>
                             <select name="nome-fornecedor" class="select-cadastro" id="fornecedor" required>
                                 <option value="">Selecione o fornecedor</option>
@@ -127,8 +131,8 @@
                     <div class="div-linhas">
                         <div class="grupo-form linha3">
                             <?php
-                                $sqlCategorias = "SELECT id, Nome_categoria FROM categorias";
-                                $stmtCat = $conexao->prepare($sqlCategorias);
+                                $stmtCat = $conexao->prepare("SELECT id, Nome_categoria FROM categorias WHERE Usuario_id = :idcategoria");
+                                $stmtCat->bindValue(':idcategoria', $_SESSION['id']);
                                 $stmtCat->execute();
                                 $categorias = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
                             ?>

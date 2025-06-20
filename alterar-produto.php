@@ -3,7 +3,7 @@
     require_once "conexao.php";
 
     if (!isset($_GET['id']) || empty($_GET['id'])) {
-        header('Location: tabela-produto.php');
+        header('Location: tabela-produto.php?mensagemerro=Produto não encontrado.');
         exit;
     }
 
@@ -16,7 +16,7 @@
         $produto = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$produto) {
-            echo "Produto não encontrado.";
+            header('Location: tabela-produto.php?mensagemerro=Produto não encontrado.');
             exit;
         }
     } catch (PDOException $e) {
@@ -55,10 +55,10 @@
                 $update->bindValue(':id', $id);
 
                 if ($update->execute()) {
-                    header('Location: tabela-produto.php');
+                    header('Location: tabela-produto.php?mensagemsucesso=Produto cadastrado com sucesso!.');
                     exit;
                 } else {
-                    $erro = "Erro ao atualizar produto.";
+                    header('Location: tabela-produto.php?mensagemerro=Erro ao tentar atualizar produto.');
                 }
             } catch (PDOException $e) {
                 $erro = "Erro: " . $e->getMessage();

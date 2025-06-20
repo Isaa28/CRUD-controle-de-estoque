@@ -34,8 +34,11 @@
     </menu>
     <?php
         require_once 'conexao.php';
-        $dados = $conexao->prepare('SELECT * FROM fornecedores;');
+        $id_usuario = $_SESSION["id"];
+        $dados = $conexao->prepare('SELECT * FROM fornecedor_usuario WHERE usuario_ID = :id;');
+        $dados->bindValue(":id", $id_usuario);
         $dados->execute();
+        $id_fornecedor = $dados->fetch(PDO::FETCH_OBJ);
     ?>
     <h1 id="titulo">Fornecedores</h1>
     <a id="cancelar-cadastrar" href="cadastro-fornecedor.php">Cadastrar</a> 
@@ -62,23 +65,31 @@
                 </tr>
             </thead>
             <tbody id="corpodatabela">
-                <?php while($rows = $dados->fetch(PDO::FETCH_OBJ)): ?>
+                <?php
+                    $sql = "SELECT f.* FROM fornecedores f INNER JOIN fornecedor_usuario fu ON f.ID = fu.Fornecedor_ID WHERE fu.Usuario_ID = :usuario_id";
+                    $stmt = $conexao->prepare($sql);
+                    $stmt->bindValue(':usuario_id', $_SESSION['id']);
+                    $stmt->execute();
+                    $fornecedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+
+                <?php foreach ($fornecedores as $for): ?>
                     <tr>
-                        <td><?= htmlspecialchars($rows->Nome_fornecedor) ?></td>
-                        <td><?= htmlspecialchars($rows->Email) ?></td>
-                        <td><?= htmlspecialchars($rows->cnpj) ?></td>
-                        <td><?= htmlspecialchars($rows->Telefone) ?></td>
-                        <td><?= htmlspecialchars($rows->Endereco) ?></td>
+                        <td><?= htmlspecialchars($for['Nome_fornecedor']) ?></td>
+                        <td><?= htmlspecialchars($for['Email']) ?></td>
+                        <td><?= htmlspecialchars($for['cnpj']) ?></td>
+                        <td><?= htmlspecialchars($for['Telefone']) ?></td>
+                        <td><?= htmlspecialchars($for['Endereco']) ?></td>
                         <td class="acoes">
-                            <a class="icons-pen" href="alterar-fornecedor.php?id=<?= $rows->ID ?>">
+                            <a class="icons-pen" href="alterar-fornecedor.php?id=<?= $for['ID'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a class="icons-trash" href="excluir-fornecedor.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?');">
+                            <a class="icons-trash" href="excluir-fornecedor.php?id=<?= $for['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor?');">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

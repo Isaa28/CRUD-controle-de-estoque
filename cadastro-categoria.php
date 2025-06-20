@@ -53,21 +53,24 @@
                                 $resultado = $consulta->rowCount();
 
                                 if($resultado === 0) {
-                                    $dados = $conexao->prepare('INSERT INTO categorias (Nome_categoria) VALUES (:nome)');
-                                    $dados->bindValue(':nome', $nome); 
+                                    $dados = $conexao->prepare('INSERT INTO categorias (Nome_categoria , usuario_ID) VALUES (:nome, :id)');
+                                    $dados->bindValue(':nome', $nome);
+                                    $dados->bindValue(':id', $_SESSION['id']);
                                     
                                     if($dados->execute()) {
                                         if($dados->rowCount() > 0) {
                                             $id = null;
                                             $nome = null;
+                                            header("Location: tabela-categoria.php?mensagemsucesso=Categoria cadastrada com sucesso.");
+
                                         } else {
-                                            echo '<div class="erro">Erro ao tentar efetivar cadastro</div>';
+                                            header("Location: tabela-categoria.php?mensagemerro=Erro ao tentar cadastrar a categoria.");
                                         }
                                     } else {
                                         echo '<div class="erro">Erro ao executar a query</div>';
                                     }
                                 } else {
-                                    echo '<div class="erro">[ERRO] Categoria já cadastrada.</div>';
+                                    header("Location: tabela-categoria.php?mensagemerro=Categoria já cadastrado por você.");
                                 }
                             } else {
                                 echo '<div class="erro">Preencha o nome da categoria.</div>';

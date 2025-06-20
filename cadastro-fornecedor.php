@@ -38,81 +38,67 @@
         <div id="caixa-cadastro">
             <div id="formulario">
                 <h1 id="titulo">Cadastro de fornecedor</h1>
-                <?php 
-                    require_once 'conexao.php';
-                    try {
-                        if(isset($_POST['nome-fornecedor'], $_POST['telefone'], $_POST['cnpj'], $_POST['email-de-contato'], $_POST['endereco'])){
-                            
-                            $nomeFornecedor = trim($_POST['nome-fornecedor']);
-                            $email = trim($_POST['email-de-contato']);
-                            $telefone = trim($_POST['telefone']);
-                            $cnpj = trim($_POST['cnpj']);
-                            $endereco = trim($_POST['endereco']);
-                            
-                            if(!empty($nomeFornecedor) && !empty($cnpj) && !empty($email) && !empty($endereco) && !empty($telefone)) {
-                                
-                                $consulta = $conexao->prepare("SELECT * FROM fornecedores WHERE cnpj = :verificando_cnpj");
-                                $consulta2 = $conexao->prepare("SELECT * FROM fornecedores WHERE Email = :verificando_email");
-                                $consulta3 = $conexao->prepare("SELECT * FROM fornecedores WHERE Telefone = :verificando_telefone");
-                                $consulta->bindValue(':verificando_cnpj', $cnpj);
-                                $consulta2->bindValue(':verificando_email', $email);
-                                $consulta3->bindValue(':verificando_telefone', $telefone);
-                                $consulta->execute();
-                                $consulta2->execute();
-                                $consulta3->execute();
-                                $resultado = $consulta->rowCount();
-                                $resultado2 = $consulta2->rowCount();
-                                $resultado3 = $consulta3->rowCount();
+                <?php
+                    require_once "conexao.php";
 
-                                if($resultado === 0) {
-                                    
-                                    if($resultado2 == 0){
+                    if(isset($_POST['nome-fornecedor'], $_POST['telefone'], $_POST['cnpj'], $_POST['email-de-contato'], $_POST['endereco'])){
 
-                                        if($resultado3 == 0){
+                        $nomeFornecedor = trim($_POST['nome-fornecedor']);
+                        $email = trim($_POST['email-de-contato']);
+                        $telefone = trim($_POST['telefone']);
+                        $cnpj = trim($_POST['cnpj']);
+                        $endereco = trim($_POST['endereco']);
+                        $id_usuario = $_SESSION['id'];
 
-                                            $dados = $conexao->prepare('INSERT INTO fornecedores (Nome_fornecedor, Email, Telefone, cnpj, Endereco) VALUES (:nome, :email, :telefone, :cnpj, :endereco)');
+                        try {
+                            if(!empty($nomeFornecedor) && !empty($email) && !empty($cnpj) && !empty($telefone) && !empty($endereco)){
+                                $verifica = $conexao->prepare("SELECT f.ID FROM fornecedores f INNER JOIN fornecedor_usuario fu ON f.ID = fu.Fornecedor_ID WHERE fu.Usuario_ID = :usuario_id AND (f.Email = :email OR f.cnpj = :cnpj OR f.Telefone = :telefone)");
+                                $verifica->bindValue(':usuario_id', $id_usuario);
+                                $verifica->bindValue(':email', $email);
+                                $verifica->bindValue(':cnpj', $cnpj);
+                                $verifica->bindValue(':telefone', $telefone);
+                                $verifica->execute();
 
-                                            $dados->bindValue(':nome', $nomeFornecedor); 
-                                            $dados->bindValue(':email', $email);
-                                            $dados->bindValue(':telefone', $telefone);
-                                            $dados->bindValue(':cnpj', $cnpj);
-                                            $dados->bindValue(':endereco', $endereco);
-                                            
-                                            if($dados->execute()) {
-                                                if($dados->rowCount() > 0) {
-                                                    $id = null;
-                                                    $nomeFornecedor = null;
-                                                    $email = null;
-                                                    $telefone = null;
-                                                    $cnpj = null;
-                                                    $endereco = null;
-                                                    
-                                                    header('Location: tabela-fornecedor.php?mensagemsucesso=Fornecedor cadastrado com sucesso!.');
-
-                                                } else {
-
-                                                    header('Location: tabela-fornecedor.php?mensagemerro=Erro ao tentar efetivar cadastro.');
-
-                                                }
-                                            } else {
-                                                throw new PDOException("Erro: Não foi possível executar a declaração sql");
-                                            }
-                                        }else {
-                                            echo '<div class="erro">[ERRO] Telefone já cadastrado.</div>';
-                                        }
-                                    } else {
-                                        echo '<div class="erro">[ERRO] Email já cadastrado.</div>';
-                                    }
-                                } else {
-                                    echo '<div class="erro">[ERRO] CNPJ já cadastrado.</div>';
+                                if ($verifica->rowCount() > 0) {
+                                    header("Location: tabela-fornecedor.php?mensagemerro=Fornecedor já cadastrado por você.");
+                                    exit;
                                 }
 
-                            } else {
-                                echo '<div class="erro">[ERRO] Dados incompletos.</div>';
+                                $consulta = $conexao->prepare("SELECT ID FROM fornecedores WHERE Email = :email OR cnpj = :cnpj OR Telefone = :telefone");
+                                $consulta->bindValue(':email', $email);
+                                $consulta->bindValue(':cnpj', $cnpj);
+                                $consulta->bindValue(':telefone', $telefone);
+                                $consulta->execute();
+                                $fornecedorExistente = $consulta->fetch(PDO::FETCH_ASSOC);
+
+                                if ($fornecedorExistente) {
+                                    $fornecedorId = $fornecedorExistente['ID'];
+                                } else {
+
+                                    $stmt = $conexao->prepare("INSERT INTO fornecedores (Nome_fornecedor, Email, cnpj, Telefone, Endereco) VALUES (:nome, :email, :cnpj, :telefone, :endereco)");
+                                    $stmt->bindValue(':nome', $nomeFornecedor);
+                                    $stmt->bindValue(':email', $email);
+                                    $stmt->bindValue(':cnpj', $cnpj);
+                                    $stmt->bindValue(':telefone', $telefone);
+                                    $stmt->bindValue(':endereco', $endereco);
+                                    $stmt->execute();
+
+                                    $fornecedorId = $conexao->lastInsertId();
+                                }
+
+                                $stmt = $conexao->prepare("INSERT INTO fornecedor_usuario (Usuario_ID, Fornecedor_ID) VALUES (:usuario, :fornecedor)");
+                                $stmt->bindValue(':usuario', $id_usuario);
+                                $stmt->bindValue(':fornecedor', $fornecedorId);
+                                $stmt->execute();
+
+                                header("Location: tabela-fornecedor.php?mensagemsucesso=Fornecedor cadastrado com sucesso.");
+                                exit;
+                            }else{
+                                echo '<div class="erro">Preencha todas as informações.</div>';
                             }
+                        } catch (PDOException $e) {
+                            echo "Erro ao cadastrar fornecedor: " . $e->getMessage();
                         }
-                    } catch (PDOException $erro) {
-                        echo "Erro: " . $erro->getMessage();
                     }
                 ?>
                 <form action="" method="post">

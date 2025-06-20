@@ -50,7 +50,7 @@
                     $categoria = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     if (!$categoria) {
-                        echo "Categoria não encontrada.";
+                        header('Location: tabela-categoria.php?mensagemerro=Categoria não encontrado.');
                         exit;
                     }
                 } catch (PDOException $e) {

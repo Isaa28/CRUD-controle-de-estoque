@@ -11,6 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/tabelas.css">
     <link rel="stylesheet" href="assets/css/menu.css">
+    <script src="https://kit.fontawesome.com/2e3161fd5b.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <menu id="menu">
@@ -33,12 +34,24 @@
     </menu>
     <?php
         require_once 'conexao.php';
-        $dados = $conexao->prepare('SELECT * FROM categorias;');
+        $id_usuario = $_SESSION["id"];
+        $dados = $conexao->prepare('SELECT * FROM categorias WHERE usuario_ID = :id;');
+        $dados->bindValue(":id", $id_usuario);
         $dados->execute();
     ?>
     <h1 id="titulo">Categorias</h1>
     <a id="cancelar-cadastrar" href="cadastro-categoria.php">Cadastrar</a>
     <div id="div-tabela">
+    <?php
+        if (!empty($_GET['mensagemerro'])) {
+            $mensagem = htmlspecialchars($_GET['mensagemerro']);
+            echo "<div class='mensagem-erro'>{$mensagem}</div>";
+        }
+        if (!empty($_GET['mensagemsucesso'])) {
+            $mensagem = htmlspecialchars($_GET['mensagemsucesso']);
+            echo "<div class='mensagem-sucesso'>{$mensagem}</div>";
+        }
+    ?>    
         <table id="tabela">
             <thead id="cabeca-tabela" id="cabecalho-categoria">
                 <tr>
@@ -52,10 +65,10 @@
                         <td><?= htmlspecialchars($rows->Nome_categoria) ?></td>
                         <td class="acoes">
                             <a class="icons" href="alterar-categoria.php?id=<?= $rows->ID ?>">
-                                <img src="assets/imagens/icon-pencil.svg" alt="Editar">
+                               <i class="fa-solid fa-pen"></i>
                             </a>
                             <a class="icons" href="excluir-categoria.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">
-                                <img src="assets/imagens/icon-trash.svg" alt="Excluir">
+                                <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
                     </tr>
