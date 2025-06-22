@@ -62,7 +62,7 @@
                     $nome = trim($_POST['nome_categoria']);
 
                     if (empty($nome)) {
-                        echo "<div class='erro'>Nome é obrigatório.</div>";
+                        echo "Nome é obrigatório.";
                     } else {
                         try {
 
