@@ -39,7 +39,6 @@
             <div id="formulario">
                 <h1 id="titulo">Cadastro de categoria</h1>
                 <?php
-                    require_once "protect.php";
                     require_once "conexao.php";
 
                     try {
