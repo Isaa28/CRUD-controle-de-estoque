@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro de fornecedor</title>
     <link rel="stylesheet" href="assets/css/menu.css">
     <link rel="stylesheet" href="assets/css/cadastros.css">
 </head>
@@ -72,7 +72,7 @@
                                 $fornecedorExistente = $consulta->fetch(PDO::FETCH_ASSOC);
 
                                 if ($fornecedorExistente) {
-                                    $fornecedorId = $fornecedorExistente['ID'];
+                                    header("Location: tabela-fornecedor.php?mensagemerro=Fornecedor já cadastrado por você.");
                                 } else {
 
                                     $stmt = $conexao->prepare("INSERT INTO fornecedores (Nome_fornecedor, Email, cnpj, Telefone, Endereco) VALUES (:nome, :email, :cnpj, :telefone, :endereco)");

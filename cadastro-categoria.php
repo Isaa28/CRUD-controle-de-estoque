@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro de categoria</title>
     <link rel="stylesheet" href="assets/css/menu.css">
     <link rel="stylesheet" href="assets/css/cadastros.css">
 </head>
@@ -66,10 +66,10 @@
                                             header("Location: tabela-categoria.php?mensagemerro=Erro ao tentar cadastrar a categoria.");
                                         }
                                     } else {
-                                        echo '<div class="erro">Erro ao executar a query</div>';
+                                        header("Location: tabela-categoria.php?mensagemerro=Erro ao tentar cadastrar a categoria.");
                                     }
                                 } else {
-                                    header("Location: tabela-categoria.php?mensagemerro=Categoria já cadastrado por você.");
+                                    header("Location: tabela-categoria.php?mensagemerro=Categoria já cadastrada por você.");
                                 }
                             } else {
                                 echo '<div class="erro">Preencha o nome da categoria.</div>';

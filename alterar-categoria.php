@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Fornecedor</title>
+    <title>Alterar categoria</title>
     <link rel="stylesheet" href="assets/css/menu.css">
     <link rel="stylesheet" href="assets/css/cadastros.css">
 </head>
@@ -102,7 +102,7 @@
                 </div>
                 <div id="botoes">
                     <a id="cancelar-cadastrar" href="tabela-categoria.php">Cancelar</a>
-                    <button id="salvar" type="submit">Salvar</button>
+                    <button id="salvar" onclick="window.location.href='cadastro-categoria.php'" type="submit">Salvar</button>
                 </div>
             </form>
         </div>

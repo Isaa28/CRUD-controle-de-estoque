@@ -152,7 +152,7 @@
                 </div>
                 <div id="botoes">
                     <a id="cancelar-cadastrar" href="tabela-fornecedor.php">Cancelar</a>
-                    <button onclick="window.location.href='cadastro-categoria.php'" id="salvar" type="submit">Salvar</button>
+                    <button onclick="window.location.href='cadastro-fornecedor.php'" id="salvar" type="submit">Salvar</button>
                 </div>
             </form>
         </div>

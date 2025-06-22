@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -117,8 +116,7 @@
                         <select name="nome_fornecedor" class="select-cadastro" id="nome_fornecedor" required>
                             <option value="">Selecione o fornecedor</option>
                             <?php foreach ($fornecedores as $for): ?>
-                                <option value="<?= $for['id'] ?>"
-                                    <?= $for['id'] == $produto['Fornecedor_ID'] ? 'selected' : '' ?>>
+                                <option value="<?= $for['id'] ?>" <?= $for['id'] == $produto['Fornecedor_ID'] ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($for['Nome_fornecedor']) ?>
                                 </option>
                             <?php endforeach; ?>

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tabela fornecedor</title>
     <link rel="stylesheet" href="assets/css/tabelas.css">
     <link rel="stylesheet" href="assets/css/menu.css">
     <script src="https://kit.fontawesome.com/2e3161fd5b.js" crossorigin="anonymous"></script>
