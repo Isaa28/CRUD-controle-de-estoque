@@ -38,12 +38,17 @@
         require_once 'conexao.php';
 
         try {
-            $stmtProdutos = $conexao->prepare("SELECT COUNT(*) AS total FROM produtos WHERE Usuario_ID = :id");
+
+            $totalProdutos = 0;
+            $totalFornecedores = 0;
+            $totalCategorias = 0;
+ 
+            $stmtProdutos = $conexao->prepare("SELECT COUNT(*) AS total FROM Produtos WHERE Usuario_ID = :id");
             $stmtProdutos->bindValue(':id', $_SESSION['id']);
             $stmtProdutos->execute();
             $totalProdutos = $stmtProdutos->fetch(PDO::FETCH_ASSOC)['total'];
 
-            $stmtFornecedores = $conexao->prepare("SELECT COUNT(*) AS total FROM fornecedor_usuario WHERE Usuario_ID = :id");
+            $stmtFornecedores = $conexao->prepare("SELECT COUNT(*) AS total FROM fornecedor_usuario WHERE usuario_ID = :id");
             $stmtFornecedores->bindValue(':id', $_SESSION['id']);
             $stmtFornecedores->execute();
             $totalFornecedores = $stmtFornecedores->fetch(PDO::FETCH_ASSOC)['total'];

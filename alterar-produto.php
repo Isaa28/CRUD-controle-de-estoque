@@ -73,8 +73,7 @@
                         echo "<div class='erro'>Todos os campos são obrigatórios.</div>";
                     } else {
                         try {
-                            $update = $conexao->prepare("UPDATE produtos SET Nome_produto = :nome, Quanti
-                            dade_estoque = :quantidade, Preco = :preco, Fornecedor_ID = :fornecedor, Categoria_ID = :categoria WHERE ID = :id");
+                            $update = $conexao->prepare("UPDATE produtos SET Nome_produto = :nome, Quantidade_estoque = :quantidade, Preco = :preco, Fornecedor_ID = :fornecedor, Categoria_ID = :categoria WHERE ID = :id");
                             $update->bindValue(':nome', $nome);
                             $update->bindValue(':quantidade', $quantidade);
                             $update->bindValue(':preco', $preco);

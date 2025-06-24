@@ -34,8 +34,10 @@
     </menu>
     <?php
         require_once 'conexao.php';
+                          
         $id_usuario = $_SESSION["id"];
-        $dados = $conexao->prepare('SELECT * FROM categorias WHERE usuario_ID = :id;');
+        
+        $dados = $conexao->prepare('SELECT * FROM categorias WHERE Usuario_ID = :id;');
         $dados->bindValue(":id", $id_usuario);
         $dados->execute();
     ?>
@@ -64,10 +66,11 @@
                     <tr>
                         <td><?= htmlspecialchars($rows->Nome_categoria) ?></td>
                         <td class="acoes">
+                            
                             <a class="icons" href="alterar-categoria.php?id=<?= $rows->ID ?>">
                                <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a class="icons" href="excluir-categoria.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">
+                            <a class="icons" href="excluir-categoria.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?Ao exclui-la todos os produtos vinculados a ela seram apagados.');">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
