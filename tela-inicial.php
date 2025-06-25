@@ -104,7 +104,9 @@
             </div>
         </div>
         <p>
-            <a href="logout.php">Sair</a>
+            <a id="botao-sair" href="logout.php">Sair
+                <img src="assets/imagens/icon-sair.png" alt="Sair do sistema" width="20px">
+            </a>
         </p>
     </div>
 </body>
