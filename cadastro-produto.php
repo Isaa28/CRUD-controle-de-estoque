@@ -43,7 +43,7 @@
     
                             $nome = trim($_POST['nome-produto']);
                             $quantidade = trim($_POST['quantidade']);
-                            $preco = trim($_POST['preco']);
+                            $preco = trim(str_replace(',', '.', $_POST['preco']));
                             $nome_fornecedor= trim($_POST['nome-fornecedor']);
                             $categoria = trim($_POST['categoria']);
                             
@@ -104,7 +104,7 @@
                         </div>
                         <div class="grupo-form linha2">
                             <label class="rotulo" for="preco">Preço:</label>
-                            <input class="caixadeentrada" type="number" id="preco" name="preco" placeholder="Ex: 9.50">
+                            <input class="caixadeentrada" type="text" step="0.01" id="preco" name="preco" placeholder="Ex: 9.50">
                         </div>
                     </div>
                     <div class="div-linhas">

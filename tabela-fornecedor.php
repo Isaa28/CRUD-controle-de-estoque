@@ -85,7 +85,7 @@
                             <a class="icons-pen" href="alterar-fornecedor.php?id=<?= $for['ID'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a class="icons-trash" href="excluir-fornecedor.php?id=<?= $for['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor? Ao exclui-lo todos os produtos vinculados a ele seram apagados.');">
+                            <a class="icons-trash" href="excluir-fornecedor.php?id=<?= $for['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este fornecedor? Ao excluí-lo, todos os produtos vinculados a ele serão apagados.');">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>

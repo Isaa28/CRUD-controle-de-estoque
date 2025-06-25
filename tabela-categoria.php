@@ -70,7 +70,7 @@
                             <a class="icons" href="alterar-categoria.php?id=<?= $rows->ID ?>">
                                <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a class="icons" href="excluir-categoria.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?Ao exclui-la todos os produtos vinculados a ela seram apagados.');">
+                            <a class="icons" href="excluir-categoria.php?id=<?= $rows->ID ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria? Ao excluí-la, todos os produtos vinculados a ela serão apagados.');">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>

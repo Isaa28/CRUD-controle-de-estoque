@@ -62,18 +62,7 @@
                                 if ($verifica->rowCount() > 0) {
                                     header("Location: tabela-fornecedor.php?mensagemerro=Fornecedor já cadastrado por você.");
                                     exit;
-                                }
-
-                                $consulta = $conexao->prepare("SELECT ID FROM fornecedores WHERE Email = :email OR cnpj = :cnpj OR Telefone = :telefone");
-                                $consulta->bindValue(':email', $email);
-                                $consulta->bindValue(':cnpj', $cnpj);
-                                $consulta->bindValue(':telefone', $telefone);
-                                $consulta->execute();
-                                $fornecedorExistente = $consulta->fetch(PDO::FETCH_ASSOC);
-
-                                if ($fornecedorExistente) {
-                                    header("Location: tabela-fornecedor.php?mensagemerro=Fornecedor já cadastrado por você.");
-                                } else {
+                                }else {
 
                                     $stmt = $conexao->prepare("INSERT INTO fornecedores (Nome_fornecedor, Email, cnpj, Telefone, Endereco) VALUES (:nome, :email, :cnpj, :telefone, :endereco)");
                                     $stmt->bindValue(':nome', $nomeFornecedor);

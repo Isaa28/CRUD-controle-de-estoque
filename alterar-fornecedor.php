@@ -102,10 +102,10 @@
                                         $update->bindValue(':id', $id);
 
                                         if ($update->execute()) {
-                                            header('Location: tabela-fornecedor.php?mensagemsucesso=Fornecedor alterar com sucesso!');
+                                            header('Location: tabela-fornecedor.php?mensagemsucesso=Fornecedor atualizado com sucesso!');
                                             exit;
                                         } else {
-                                            header('Location: tabela-fornecedor.php?mensagemerro=Erro ao tentar alterar fornecedor.');
+                                            header('Location: tabela-fornecedor.php?mensagemerro=Erro ao tentar atualizar fornecedor.');
                                         }
                                     }else{
                                         echo "<div class='erro'>[ERRO] Você está tentado alterar o telefone para um já existente.</div>";

@@ -82,7 +82,7 @@
                             $update->bindValue(':id', $id);
 
                             if ($update->execute()) {
-                                header('Location: tabela-produto.php?mensagemsucesso=Produto cadastrado com sucesso!.');
+                                header('Location: tabela-produto.php?mensagemsucesso=Produto atualizado com sucesso!.');
                                 exit;
                             } else {
                                 header('Location: tabela-produto.php?mensagemerro=Erro ao tentar atualizar produto.');
