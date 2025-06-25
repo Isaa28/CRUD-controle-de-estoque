@@ -102,7 +102,7 @@
                 </div>
                 <div id="botoes">
                     <a id="cancelar-cadastrar" href="tabela-categoria.php">Cancelar</a>
-                    <button id="salvar" onclick="window.location.href='cadastro-categoria.php'" type="submit">Salvar</button>
+                    <button id="salvar" type="submit">Salvar</button>
                 </div>
             </form>
         </div>
